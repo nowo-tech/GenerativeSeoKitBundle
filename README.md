@@ -89,6 +89,12 @@ make -C demo up-symfony8   # http://localhost:8070 (default PORT)
 
 See [docs/DEMO-FRANKENPHP.md](docs/DEMO-FRANKENPHP.md).
 
+<table>
+  <tr>
+    <td><img src="docs/images/demo/overview.png" alt="Demo home: llms.txt, robots.txt and sitemap links" width="640"></td>
+  </tr>
+</table>
+
 ## Tests and coverage
 
 ```bash

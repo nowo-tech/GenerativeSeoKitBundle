@@ -54,9 +54,8 @@ final class GenerativeSeoAuditCommandTest extends TestCase
         $robots  = new SeoKitRobotsGroupsProvider($config);
         $command = new GenerativeSeoAuditCommand(new GenerativeSeoAuditor($llms, $robots));
         $app     = new Application();
-        $app->add($command);
-        $cmd = $app->find('nowo:generative-seo:audit');
+        $app->addCommand($command);
 
-        return new CommandTester($cmd);
+        return new CommandTester($app->find('nowo:generative-seo:audit'));
     }
 }

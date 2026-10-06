@@ -34,6 +34,8 @@ jobs:
             symfony: '8.0'
           - php: '8.2'
             symfony: '8.1'
+          - php: '8.3'
+            symfony: '8.1'
 
     steps:
       - uses: actions/checkout@v7
@@ -51,17 +53,15 @@ jobs:
         run: |
           composer require \
             symfony/config:^${{ matrix.symfony }} \
+            symfony/console:^${{ matrix.symfony }} \
             symfony/dependency-injection:^${{ matrix.symfony }} \
-            symfony/framework-bundle:^${{ matrix.symfony }} \
             symfony/http-foundation:^${{ matrix.symfony }} \
             symfony/http-kernel:^${{ matrix.symfony }} \
             symfony/routing:^${{ matrix.symfony }} \
-            symfony/twig-bundle:^${{ matrix.symfony }} \
             symfony/yaml:^${{ matrix.symfony }} \
             --no-interaction --no-update
           composer require --dev \
-            symfony/browser-kit:^${{ matrix.symfony }} \
-            symfony/phpunit-bridge:^${{ matrix.symfony }} \
+            symfony/framework-bundle:^${{ matrix.symfony }} \
             --no-interaction --no-update
           composer update --no-interaction --prefer-dist
       - name: Composer audit (Critical/High)

@@ -1,7 +1,6 @@
 nowo_seo_kit:
     enabled: true
     default_locale: en
-    base_url: '%env(DEFAULT_URI)%'
     locales:
         - en
     defaults:

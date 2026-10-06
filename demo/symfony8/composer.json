@@ -15,9 +15,10 @@
         }
     ],
     "require": {
+        "php": ">=8.2,<8.6",
         "nowo-tech/generative-seo-kit-bundle": "*",
         "nowo-tech/seo-kit-bundle": "^1.11",
-        "php": ">=8.2,<8.6",
+        "symfony/asset": "^8.0",
         "symfony/console": "^8.0",
         "symfony/dotenv": "^8.0",
         "symfony/flex": "^2.0",
