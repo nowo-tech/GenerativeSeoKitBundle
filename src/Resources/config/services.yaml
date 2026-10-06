@@ -1,0 +1,32 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: false
+
+    Nowo\GenerativeSeoKitBundle\Service\ConfigCitationSourceProvider:
+        arguments:
+            $config: '%nowo_generative_seo_kit.config%'
+        tags: ['nowo_generative_seo_kit.citation_source_provider']
+
+    Nowo\GenerativeSeoKitBundle\Service\LlmsTxtGenerator:
+        arguments:
+            $config: '%nowo_generative_seo_kit.config%'
+            $citationProviders: !tagged_iterator nowo_generative_seo_kit.citation_source_provider
+
+    Nowo\GenerativeSeoKitBundle\Service\SeoKitRobotsGroupsProvider:
+        arguments:
+            $config: '%nowo_generative_seo_kit.config%'
+
+    Nowo\GenerativeSeoKitBundle\Service\GenerativeSeoAuditor: ~
+
+    Nowo\GenerativeSeoKitBundle\Controller\LlmsTxtController:
+        tags: ['controller.service_arguments']
+        public: true
+
+    Nowo\GenerativeSeoKitBundle\Routing\LlmsTxtRouteLoader:
+        arguments:
+            $config: '%nowo_generative_seo_kit.config%'
+        tags: ['routing.loader']
+
+    Nowo\GenerativeSeoKitBundle\Command\GenerativeSeoAuditCommand: ~

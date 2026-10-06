@@ -1,0 +1,51 @@
+# Release process
+
+## Table of contents
+
+- [Pre-release checklist](#pre-release-checklist)
+- [Version bump](#version-bump)
+- [Tag and GitHub release](#tag-and-github-release)
+- [Packagist](#packagist)
+- [Sync missing releases](#sync-missing-releases)
+
+Current stable target: **v1.11.0**.
+
+## Pre-release checklist
+
+```bash
+make release-check
+```
+
+`release-check` runs (in order):
+
+1. `check-no-cursor-coauthor`
+2. `composer-sync`
+3. `cs-fix`, `cs-check`
+4. `rector-dry`
+5. `phpstan`
+6. `test-coverage`
+7. Demo healthcheck (if `demo/Makefile` defines `release-check`)
+
+## Version bump
+
+1. Update `docs/CHANGELOG.md` with a dated `## [X.Y.Z]` section.
+2. Update `docs/UPGRADING.md` if integrators must act.
+3. Commit on `main`.
+
+## Tag and GitHub release
+
+```bash
+git tag -a v1.11.0 -m "Release v1.11.0"
+git push origin main
+git push origin v1.11.0
+```
+
+GitHub Actions `release.yml` creates a release from the tag message and changelog section.
+
+## Packagist
+
+After the GitHub release, verify Packagist auto-update (webhook) or trigger manual update.
+
+## Sync missing releases
+
+Workflow `sync-releases.yml` can backfill GitHub releases from tags (scheduled / manual).

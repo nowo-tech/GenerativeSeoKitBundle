@@ -1,0 +1,11 @@
+controllers:
+    resource: ../src/Controller/DemoController.php
+    type: attribute
+
+nowo_seo_kit:
+    resource: .
+    type: nowo_seo_kit
+
+nowo_generative_seo_kit:
+    resource: .
+    type: nowo_generative_seo_kit

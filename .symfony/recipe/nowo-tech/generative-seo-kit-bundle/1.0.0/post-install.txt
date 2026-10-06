@@ -1,0 +1,5 @@
+  * Import routes (type: nowo_generative_seo_kit) if Flex did not.
+  * Configure citations and crawlers in config/packages/nowo_generative_seo_kit.yaml.
+  * Keep SeoKit robots.txt / sitemap imports.
+  * Verify /llms.txt and extra User-agent groups in /robots.txt.
+  * See docs/CONFIGURATION.md and docs/USAGE.md.

@@ -1,0 +1,39 @@
+nowo_seo_kit:
+    enabled: true
+    default_locale: en
+    base_url: '%env(DEFAULT_URI)%'
+    locales:
+        - en
+    defaults:
+        site_name: 'Generative SEO Kit Demo'
+        description: 'llms.txt and AI crawler policy demonstration'
+        open_graph:
+            enabled: true
+            type: website
+            site_name: 'Generative SEO Kit Demo'
+        twitter:
+            enabled: true
+            card: summary
+        json_ld:
+            enabled: true
+            organization:
+                name: 'Generative SEO Kit Demo'
+                url: '%env(DEFAULT_URI)%'
+    pages:
+        app_home:
+            title: Home
+            description: 'Generative SEO Kit FrankenPHP demo'
+            path: /
+            in_sitemap: true
+            sitemap_priority: 1.0
+    sitemap:
+        enabled: true
+        path: /sitemap.xml
+    robots:
+        enabled: true
+        path: /robots.txt
+        allow:
+            - /
+        disallow:
+            - /_wdt
+            - /_profiler

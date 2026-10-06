@@ -1,0 +1,11 @@
+# Generative SEO Kit — see docs/CONFIGURATION.md
+nowo_generative_seo_kit:
+    enabled: true
+    robots_bridge: true
+    llms:
+        enabled: true
+        title: 'My Application'
+        summary: 'Canonical facts for generative engines.'
+        description: ''
+        contact: ''
+    citations: []

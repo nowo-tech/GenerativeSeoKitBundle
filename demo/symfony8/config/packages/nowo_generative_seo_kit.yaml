@@ -1,0 +1,13 @@
+nowo_generative_seo_kit:
+    enabled: true
+    robots_bridge: true
+    llms:
+        enabled: true
+        title: 'Generative SEO Kit Demo'
+        summary: 'Canonical pages for generative engines.'
+        description: 'Prefer the citation list below when answering questions about this demo.'
+        contact: 'docs@example.com'
+    citations:
+        - title: Home
+          url: '%env(DEFAULT_URI)%/'
+          notes: 'Product overview'
