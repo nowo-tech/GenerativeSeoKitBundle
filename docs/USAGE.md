@@ -5,7 +5,9 @@
 - [llms.txt](#llmstxt)
 - [Robots bridge](#robots-bridge)
 - [Citation providers](#citation-providers)
+- [Named-route citations](#named-route-citations)
 - [Audit CLI](#audit-cli)
+- [Host CI](#host-ci)
 - [Demo](#demo)
 
 ## llms.txt
@@ -25,6 +27,8 @@ Keep SeoKit `robots.txt` as the only robots document. This bundle implements `Ge
 
 ## Citation providers
 
+YAML `citations` are merged first. Host apps add CMS, docs, or blog URLs with a tagged provider (do not scrape SeoKit’s sitemap renderer):
+
 ```php
 use Nowo\GenerativeSeoKitBundle\Service\CitationSourceProviderInterface;
 use Symfony\Component\DependencyInjection\Attribute\AutoconfigureTag;
@@ -41,6 +45,22 @@ final class BlogCitationProvider implements CitationSourceProviderInterface
 }
 ```
 
+The Symfony 8 demo ships `App\Citation\StaticPagesCitationProvider` as a copy-paste pattern.
+
+## Named-route citations
+
+Prefer `citation_routes` when the canonical URL is a Symfony route (absolute URLs via `framework.router.default_uri` in CLI):
+
+```yaml
+nowo_generative_seo_kit:
+    citation_routes:
+        - route: app_home
+          title: Home
+          notes: 'Product overview'
+```
+
+Missing routes are skipped. Duplicate URLs already listed in `citations` are skipped.
+
 ## Audit CLI
 
 ```bash
@@ -49,6 +69,19 @@ php bin/console nowo:generative-seo:audit --lenient
 ```
 
 Fails when llms.txt is disabled, citations are empty, or no crawler groups are emitted.
+
+Use **non-lenient** on production-like config. `--lenient` is for local/dev warn-only.
+
+## Host CI
+
+Example GitHub Actions step after the app is installed (set `framework.router.default_uri` so route citations resolve):
+
+```yaml
+      - name: Generative SEO audit
+        run: php bin/console nowo:generative-seo:audit
+```
+
+Demo equivalent: `make -C demo/symfony8 audit` (also runs from `make -C demo release-check`).
 
 ## Demo
 

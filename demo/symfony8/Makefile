@@ -9,7 +9,7 @@ endif
 SERVICE_PHP = php
 PLAYWRIGHT_IMAGE ?= mcr.microsoft.com/playwright:v1.63.0-jammy
 
-.PHONY: help up down build install shell update-bundle ensure-up ensure-env test-e2e demo-screenshots
+.PHONY: help up down build install shell update-bundle ensure-up ensure-env test-e2e demo-screenshots audit
 
 help:
 	@echo "Symfony 8 Demo - Generative SEO Kit Bundle"
@@ -19,6 +19,7 @@ help:
 	@echo "  make install        Install dependencies"
 	@echo "  make shell          Open shell in PHP container"
 	@echo "  make update-bundle  Sync bundle autoload and clear cache"
+	@echo "  make audit          Run nowo:generative-seo:audit (CI-friendly)"
 	@echo "  make test-e2e       Playwright e2e (REQ-DEMO-013)"
 	@echo "  make demo-screenshots  Capture docs/images/demo PNGs"
 
@@ -54,6 +55,9 @@ shell: ensure-up
 update-bundle: ensure-up
 	@$(COMPOSE) exec -T $(SERVICE_PHP) composer dump-autoload --optimize
 	@$(COMPOSE) exec -T $(SERVICE_PHP) php bin/console cache:clear --env=dev --no-warmup || true
+
+audit: ensure-up
+	@$(COMPOSE) exec -T $(SERVICE_PHP) php bin/console nowo:generative-seo:audit
 
 test-e2e: ensure-up
 	@mkdir -p e2e/node_modules

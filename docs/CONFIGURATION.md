@@ -8,6 +8,7 @@ Configuration root: `nowo_generative_seo_kit`.
 - [llms](#llms)
 - [crawlers](#crawlers)
 - [citations](#citations)
+- [citation_routes](#citation_routes)
 - [Host extension points](#host-extension-points)
 
 ## Top-level keys
@@ -33,10 +34,10 @@ Configuration root: `nowo_generative_seo_kit`.
 
 List of `{ user_agent, allow, disallow }` maps. Defaults (inference/search allowed, training-oriented disallowed):
 
-- Allow `/`: `GPTBot`, `OAI-SearchBot`, `ClaudeBot`, `PerplexityBot`
-- Disallow `/`: `Google-Extended`, `Applebot-Extended`, `CCBot`
+- Allow `/`: `GPTBot`, `ChatGPT-User`, `OAI-SearchBot`, `ClaudeBot`, `Claude-User`, `Claude-SearchBot`, `PerplexityBot`
+- Disallow `/`: `Google-Extended`, `Applebot-Extended`, `CCBot`, `Bytespider`, `anthropic-ai`
 
-Extra groups are omitted by SeoKit when the site is not indexable.
+Extra groups are omitted by SeoKit when the site is not indexable. Override `crawlers` entirely to replace the catalog.
 
 ## citations
 
@@ -56,10 +57,19 @@ nowo_generative_seo_kit:
         - title: Home
           url: 'https://example.com/'
           notes: 'Product overview'
+    citation_routes:
+        - route: app_home
+          title: Home
+          notes: 'Generated from the Symfony route'
+          parameters: {}
 ```
+
+## citation_routes
+
+List of `{ route, title, notes?, parameters? }`. `RouteCitationSourceProvider` generates **absolute** URLs via the Symfony router (`framework.router.default_uri` in CLI). Missing routes are skipped. Duplicate URLs already listed in `citations` are skipped.
 
 ## Host extension points
 
 | Tag / interface | Purpose |
 | --- | --- |
-| `nowo_generative_seo_kit.citation_source_provider` (`CitationSourceProviderInterface`) | Extra citation rows after YAML |
+| `nowo_generative_seo_kit.citation_source_provider` (`CitationSourceProviderInterface`) | Extra citation rows after YAML and `citation_routes` |

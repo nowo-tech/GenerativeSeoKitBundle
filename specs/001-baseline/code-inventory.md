@@ -11,6 +11,7 @@ Every production file under `src/` (REQ-SPECKIT-001 / REQ-SPECKIT-003).
 | `Service/DefaultCrawlerCatalog.php` | Default AI user-agents | FR-GEO-004 |
 | `Service/CitationSourceProviderInterface.php` | Host citation SPI | FR-GEO-006 |
 | `Service/ConfigCitationSourceProvider.php` | YAML citations | FR-GEO-006 |
+| `Service/RouteCitationSourceProvider.php` | Named-route citations | FR-GEO-008 |
 | `Service/LlmsTxtGenerator.php` | llms.txt body | FR-GEO-002 |
 | `Service/SeoKitRobotsGroupsProvider.php` | SeoKit robots bridge | FR-GEO-005 |
 | `Service/GenerativeSeoAuditor.php` | Audit rules | FR-GEO-007 |

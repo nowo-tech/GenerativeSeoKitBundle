@@ -14,14 +14,14 @@ use Symfony\Bundle\WebProfilerBundle\WebProfilerBundle;
 use Twig\Extra\TwigExtraBundle\TwigExtraBundle;
 
 return [
-    FrameworkBundle::class              => ['all' => true],
-    TwigBundle::class                   => ['all' => true],
-    NowoFormKitBundle::class            => ['all' => true],
-    SeoKitBundle::class                 => ['all' => true],
-    GenerativeSeoKitBundle::class       => ['all' => true],
-    WebProfilerBundle::class            => ['dev' => true, 'test' => true],
-    DebugBundle::class                  => ['dev' => true],
-    NowoHotReloadBundle::class          => ['dev' => true, 'test' => true],
-    NowoTwigInspectorBundle::class      => ['dev' => true, 'test' => true],
-    TwigExtraBundle::class              => ['all' => true],
+    FrameworkBundle::class         => ['all' => true],
+    TwigBundle::class              => ['all' => true],
+    NowoFormKitBundle::class       => ['all' => true],
+    SeoKitBundle::class            => ['all' => true],
+    GenerativeSeoKitBundle::class  => ['all' => true],
+    WebProfilerBundle::class       => ['dev' => true, 'test' => true],
+    DebugBundle::class             => ['dev' => true],
+    NowoHotReloadBundle::class     => ['dev' => true, 'test' => true],
+    NowoTwigInspectorBundle::class => ['dev' => true, 'test' => true],
+    TwigExtraBundle::class         => ['all' => true],
 ];

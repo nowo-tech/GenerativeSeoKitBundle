@@ -23,6 +23,27 @@ final class ConfigurationTest extends TestCase
         self::assertSame('/.well-known/llms.txt', $processed['llms']['well_known_path']);
         self::assertSame(DefaultCrawlerCatalog::defaults(), $processed['crawlers']);
         self::assertSame([], $processed['citations']);
+        self::assertSame([], $processed['citation_routes']);
         self::assertInstanceOf(GenerativeSeoKitExtension::class, (new GenerativeSeoKitBundle())->getContainerExtension());
+    }
+
+    public function testCitationRoutesDefaultsAndParameters(): void
+    {
+        $processed = (new Processor())->processConfiguration(new Configuration(), [[
+            'citation_routes' => [
+                ['route' => 'app_home', 'title' => 'Home', 'parameters' => ['slug' => 'geo']],
+            ],
+        ]]);
+        self::assertSame(
+            [
+                [
+                    'route'      => 'app_home',
+                    'title'      => 'Home',
+                    'parameters' => ['slug' => 'geo'],
+                    'notes'      => '',
+                ],
+            ],
+            $processed['citation_routes'],
+        );
     }
 }

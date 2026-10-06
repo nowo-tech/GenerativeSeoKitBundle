@@ -8,7 +8,8 @@
 | `make down-symfony8` | Stop containers |
 | `make shell-symfony8` | Shell in PHP container |
 | `make update-bundle-symfony8` | Sync bundle autoload + clear cache |
-| `make release-check` | Healthcheck: `/`, `/llms.txt`, `/robots.txt` |
+| `make audit-symfony8` | `nowo:generative-seo:audit` in the demo container |
+| `make release-check` | Healthcheck: `/`, `/llms.txt`, `/robots.txt`, plus GEO audit |
 
 Demo sources: [`symfony8/`](symfony8/).
 

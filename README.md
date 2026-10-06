@@ -25,9 +25,9 @@ This bundle is **FrankenPHP worker mode friendly**.
 ## Features
 
 - ✅ **Depends on SeoKit** — does not fork head tags, sitemap, or canonical; implements `GeoRobotsGroupsProviderInterface`
-- ✅ **AI crawler policy** — default allow for inference/search bots (GPTBot, OAI-SearchBot, ClaudeBot, PerplexityBot); default disallow for training-oriented agents (Google-Extended, Applebot-Extended, CCBot)
+- ✅ **AI crawler policy** — default allow for inference/search bots (GPTBot, ChatGPT-User, OAI-SearchBot, ClaudeBot, Claude-User, Claude-SearchBot, PerplexityBot); default disallow for training-oriented agents (Google-Extended, Applebot-Extended, CCBot, Bytespider, anthropic-ai)
 - ✅ **llms.txt** — `/llms.txt` and `/.well-known/llms.txt` as `text/plain`
-- ✅ **Citation index** — YAML `citations` plus tagged `CitationSourceProviderInterface`
+- ✅ **Citation index** — YAML `citations`, `citation_routes`, plus tagged `CitationSourceProviderInterface`
 - ✅ **Audit CLI** — `nowo:generative-seo:audit` (`--lenient` for warn-only)
 - ✅ **FrankenPHP-ready demo** — single-container Symfony 8 demo
 
@@ -61,6 +61,7 @@ Nowo\GenerativeSeoKitBundle\GenerativeSeoKitBundle::class => ['all' => true],
 - [Contributing](docs/CONTRIBUTING.md)
 - [Code of Conduct](CODE_OF_CONDUCT.md)
 - [Changelog](docs/CHANGELOG.md)
+- [Roadmap](docs/ROADMAP.md)
 - [Upgrading](docs/UPGRADING.md)
 - [Release](docs/RELEASE.md)
 - [Security](docs/SECURITY.md)
@@ -79,6 +80,7 @@ Nowo\GenerativeSeoKitBundle\GenerativeSeoKitBundle::class => ['all' => true],
 
 | Version | PHP | Symfony | Status |
 |---------|-----|---------|--------|
+| 1.1.x | >= 8.2 | 7.4 – 8.1+ | Current |
 | 1.0.x | >= 8.2 | 7.4 – 8.1+ | Initial |
 
 ## Demos

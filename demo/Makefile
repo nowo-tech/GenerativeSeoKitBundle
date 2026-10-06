@@ -1,4 +1,4 @@
-.PHONY: help up-symfony8 down-symfony8 install-symfony8 shell-symfony8 release-check update-bundle-symfony8
+.PHONY: help up-symfony8 down-symfony8 install-symfony8 shell-symfony8 release-check update-bundle-symfony8 audit-symfony8
 
 help:
 	@echo "Generative SEO Kit Bundle — Demos"
@@ -6,7 +6,7 @@ help:
 	@echo "Symfony 8 (port 8070):"
 	@echo "  up-symfony8 down-symfony8 install-symfony8 shell-symfony8"
 	@echo ""
-	@echo "  release-check          Verify demo health (HTTP 200 + llms.txt + robots)"
+	@echo "  release-check          Verify demo health (HTTP 200 + llms.txt + robots + audit)"
 
 up-symfony8:
 	@$(MAKE) -C symfony8 up
@@ -23,9 +23,13 @@ shell-symfony8:
 update-bundle-symfony8:
 	@$(MAKE) -C symfony8 update-bundle
 
+audit-symfony8:
+	@$(MAKE) -C symfony8 audit
+
 release-check:
 	@$(MAKE) up-symfony8
 	@$(MAKE) update-bundle-symfony8
+	@$(MAKE) audit-symfony8
 	@PORT=$$(grep "^PORT=" symfony8/.env 2>/dev/null | cut -d= -f2 | tr -d '\r'); \
 	[ -z "$$PORT" ] && PORT=$$(grep "^PORT=" symfony8/.env.example 2>/dev/null | cut -d= -f2 | tr -d '\r'); \
 	[ -z "$$PORT" ] && PORT=8070; \

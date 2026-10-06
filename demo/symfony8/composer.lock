@@ -253,7 +253,7 @@
             "dist": {
                 "type": "path",
                 "url": "/var/generative-seo-kit-bundle",
-                "reference": "86e5022790d5eaf1e2f721f179f85f3dcbf4b09d"
+                "reference": "89abb1e349761cf7b20368a2592220e313fcf67f"
             },
             "require": {
                 "nowo-tech/seo-kit-bundle": "^1.11",
@@ -379,16 +379,16 @@
         },
         {
             "name": "nowo-tech/seo-kit-bundle",
-            "version": "v1.11.0",
+            "version": "v1.11.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nowo-tech/SeoKitBundle.git",
-                "reference": "2442a2ffaa504348b44a526bc1ceee3c3afad3ea"
+                "reference": "8d7ea2704eca470e869191b677654fb1df726500"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nowo-tech/SeoKitBundle/zipball/2442a2ffaa504348b44a526bc1ceee3c3afad3ea",
-                "reference": "2442a2ffaa504348b44a526bc1ceee3c3afad3ea",
+                "url": "https://api.github.com/repos/nowo-tech/SeoKitBundle/zipball/8d7ea2704eca470e869191b677654fb1df726500",
+                "reference": "8d7ea2704eca470e869191b677654fb1df726500",
                 "shasum": ""
             },
             "require": {
@@ -431,6 +431,7 @@
             "suggest": {
                 "doctrine/doctrine-bundle": "Registers ORM mappings when persistence is enabled",
                 "doctrine/orm": "Required when nowo_seo_kit.persistence.enabled is true (SeoSiteSettings / SeoSurface)",
+                "nowo-tech/generative-seo-kit-bundle": "Generative Engine Optimization (GEO, not geolocation): AI crawler robots groups, /llms.txt, citations, nowo:generative-seo:audit",
                 "symfony/cache": "Optional cache.app for SeoSiteConfigProvider snapshots",
                 "symfony/console": "Required for nowo:seo:audit",
                 "symfony/flex": "For automatic recipe installation (config and bundles.php)",
@@ -485,7 +486,7 @@
                 "issues": "https://github.com/nowo-tech/SeoKitBundle/issues",
                 "source": "https://github.com/nowo-tech/SeoKitBundle"
             },
-            "time": "2026-10-06T06:35:14+00:00"
+            "time": "2026-10-06T09:53:38+00:00"
         },
         {
             "name": "psr/cache",

@@ -11,3 +11,7 @@ nowo_generative_seo_kit:
         - title: Home
           url: '%env(DEFAULT_URI)%/'
           notes: 'Product overview'
+    citation_routes:
+        - route: app_home
+          title: Home (route)
+          notes: 'Generated from the Symfony route name'

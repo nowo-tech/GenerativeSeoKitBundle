@@ -18,12 +18,17 @@ final class DefaultCrawlerCatalog
     {
         return [
             ['user_agent' => 'GPTBot', 'allow' => ['/'], 'disallow' => []],
+            ['user_agent' => 'ChatGPT-User', 'allow' => ['/'], 'disallow' => []],
             ['user_agent' => 'OAI-SearchBot', 'allow' => ['/'], 'disallow' => []],
             ['user_agent' => 'ClaudeBot', 'allow' => ['/'], 'disallow' => []],
+            ['user_agent' => 'Claude-User', 'allow' => ['/'], 'disallow' => []],
+            ['user_agent' => 'Claude-SearchBot', 'allow' => ['/'], 'disallow' => []],
             ['user_agent' => 'PerplexityBot', 'allow' => ['/'], 'disallow' => []],
             ['user_agent' => 'Google-Extended', 'allow' => [], 'disallow' => ['/']],
             ['user_agent' => 'Applebot-Extended', 'allow' => [], 'disallow' => ['/']],
             ['user_agent' => 'CCBot', 'allow' => [], 'disallow' => ['/']],
+            ['user_agent' => 'Bytespider', 'allow' => [], 'disallow' => ['/']],
+            ['user_agent' => 'anthropic-ai', 'allow' => [], 'disallow' => ['/']],
         ];
     }
 }

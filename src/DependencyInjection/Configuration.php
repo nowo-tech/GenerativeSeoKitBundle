@@ -64,6 +64,21 @@ final class Configuration implements ConfigurationInterface
                     ->end()
                     ->defaultValue([])
                 ->end()
+                ->arrayNode('citation_routes')
+                    ->prototype('array')
+                        ->children()
+                            ->scalarNode('route')->isRequired()->cannotBeEmpty()->end()
+                            ->scalarNode('title')->isRequired()->cannotBeEmpty()->end()
+                            ->scalarNode('notes')->defaultValue('')->end()
+                            ->arrayNode('parameters')
+                                ->normalizeKeys(false)
+                                ->variablePrototype()->end()
+                                ->defaultValue([])
+                            ->end()
+                        ->end()
+                    ->end()
+                    ->defaultValue([])
+                ->end()
             ->end();
 
         return $treeBuilder;

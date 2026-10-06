@@ -9,6 +9,12 @@ services:
             $config: '%nowo_generative_seo_kit.config%'
         tags: ['nowo_generative_seo_kit.citation_source_provider']
 
+    Nowo\GenerativeSeoKitBundle\Service\RouteCitationSourceProvider:
+        arguments:
+            $config: '%nowo_generative_seo_kit.config%'
+            $urlGenerator: '@?router'
+        tags: ['nowo_generative_seo_kit.citation_source_provider']
+
     Nowo\GenerativeSeoKitBundle\Service\LlmsTxtGenerator:
         arguments:
             $config: '%nowo_generative_seo_kit.config%'
