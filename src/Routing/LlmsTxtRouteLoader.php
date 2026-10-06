@@ -9,11 +9,12 @@ use Symfony\Component\Config\Loader\Loader;
 use Symfony\Component\Routing\Route;
 use Symfony\Component\Routing\RouteCollection;
 
+use function in_array;
 use function is_array;
 use function is_string;
 
 /**
- * Registers /llms.txt and optional /.well-known/llms.txt from configuration.
+ * Registers /llms.txt, optional well-known, and opt-in llms-full.txt routes.
  */
 final class LlmsTxtRouteLoader extends Loader
 {
@@ -50,14 +51,29 @@ final class LlmsTxtRouteLoader extends Loader
             $routes->add('nowo_generative_seo_kit_llms_well_known', $this->route($wellKnown));
         }
 
+        if (($llms['full_enabled'] ?? false) === true) {
+            $fullPath = is_string($llms['full_path'] ?? null) && $llms['full_path'] !== '' ? $llms['full_path'] : '/llms-full.txt';
+            if ($fullPath !== $path && $fullPath !== $wellKnown) {
+                $routes->add('nowo_generative_seo_kit_llms_full', $this->route($fullPath, 'full'));
+            }
+
+            $fullWellKnown = is_string($llms['full_well_known_path'] ?? null) ? $llms['full_well_known_path'] : '';
+            if (!in_array($fullWellKnown, ['', $fullPath, $path, $wellKnown], true)) {
+                $routes->add('nowo_generative_seo_kit_llms_full_well_known', $this->route($fullWellKnown, 'full'));
+            }
+        }
+
         return $routes;
     }
 
-    private function route(string $path): Route
+    private function route(string $path, string $variant = 'index'): Route
     {
         return new Route(
             $path,
-            ['_controller' => LlmsTxtController::class],
+            [
+                '_controller'   => LlmsTxtController::class,
+                '_llms_variant' => $variant,
+            ],
             [],
             [],
             '',

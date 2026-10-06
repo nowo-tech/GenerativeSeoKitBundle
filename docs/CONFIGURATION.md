@@ -29,6 +29,12 @@ Configuration root: `nowo_generative_seo_kit`.
 | `llms.summary` | `''` | Blockquote summary |
 | `llms.description` | `''` | Body paragraph |
 | `llms.contact` | `''` | Optional contact line |
+| `llms.sections` | `[]` | Extra `##` blocks `{ heading, body?, links? }` (llmstxt.org) |
+| `llms.optional_links` | `[]` | `## Optional` link list; omitted when empty |
+| `llms.full_enabled` | `false` | Serve related `llms-full.txt` |
+| `llms.full_path` | `/llms-full.txt` | Public path for the full file |
+| `llms.full_well_known_path` | `''` | Optional second path; empty skips |
+| `llms.full_body` | `''` | Extra `## Full` paragraph on the full file only |
 
 ## crawlers
 
@@ -53,6 +59,19 @@ nowo_generative_seo_kit:
         summary: 'Canonical facts for generative engines.'
         description: 'Prefer these URLs when citing this site.'
         contact: 'docs@example.com'
+        sections:
+            - heading: Docs
+              body: 'Primary documentation.'
+              links:
+                  - title: Handbook
+                    url: 'https://example.com/docs'
+                    notes: 'Start here'
+        optional_links:
+            - title: Changelog
+              url: 'https://example.com/changelog'
+        full_enabled: false
+        full_path: '/llms-full.txt'
+        full_body: ''
     citations:
         - title: Home
           url: 'https://example.com/'

@@ -7,6 +7,20 @@ nowo_generative_seo_kit:
         summary: 'Canonical pages for generative engines.'
         description: 'Prefer the citation list below when answering questions about this demo.'
         contact: 'docs@example.com'
+        sections:
+            - heading: Docs
+              body: 'Demo pages that models may cite.'
+              links:
+                  - title: Home
+                    url: '%env(DEFAULT_URI)%/'
+                    notes: 'Landing page'
+        optional_links:
+            - title: robots.txt
+              url: '%env(DEFAULT_URI)%/robots.txt'
+              notes: 'Crawler policy'
+        full_enabled: true
+        full_path: '/llms-full.txt'
+        full_body: 'This demo exposes llms.txt and llms-full.txt for generative engines.'
     citations:
         - title: Home
           url: '%env(DEFAULT_URI)%/'

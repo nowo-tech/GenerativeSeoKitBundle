@@ -40,7 +40,7 @@ Before tagging a release, confirm:
 | **Dependencies** | `composer audit` run; issues triaged. |
 | **Logging** | Audit command does not print secrets. |
 | **Cryptography** | Not used. |
-| **Permissions / exposure** | llms.txt is public by design; do not cite private URLs. |
+| **Permissions / exposure** | llms.txt and optional llms-full.txt are public by design; do not cite private URLs. |
 | **Limits / DoS** | Citation lists are config-bounded. |
 | **AI security audit** | Grade recorded when applicable (REQ-SEC-004). |
 

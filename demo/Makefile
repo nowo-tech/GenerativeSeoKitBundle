@@ -6,7 +6,7 @@ help:
 	@echo "Symfony 8 (port 8070):"
 	@echo "  up-symfony8 down-symfony8 install-symfony8 shell-symfony8"
 	@echo ""
-	@echo "  release-check          Verify demo health (HTTP 200 + llms.txt + robots + audit)"
+	@echo "  release-check          Verify demo health (HTTP 200 + llms.txt + llms-full.txt + robots + audit)"
 
 up-symfony8:
 	@$(MAKE) -C symfony8 up
@@ -35,6 +35,7 @@ release-check:
 	[ -z "$$PORT" ] && PORT=8070; \
 	curl -sf "http://localhost:$$PORT/" >/dev/null && \
 	curl -sf "http://localhost:$$PORT/llms.txt" | grep -q 'llms.txt\|#' && \
+	curl -sf "http://localhost:$$PORT/llms-full.txt" | grep -q 'Full\|#' && \
 	curl -sf "http://localhost:$$PORT/robots.txt" | grep -q 'User-agent' && \
 	echo "Symfony 8 Generative SEO demo healthcheck OK (port $$PORT)" || \
 	(echo "Symfony 8 Generative SEO demo healthcheck failed" && exit 1)

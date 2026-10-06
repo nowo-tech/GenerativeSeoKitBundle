@@ -30,6 +30,12 @@ As an integrator, I list Symfony route names under `citation_routes` so llms.txt
 
 **Independent Test**: Configured `app_home` appears as an absolute URL in `/llms.txt`; a missing route name is skipped.
 
+### User Story 5 — llmstxt.org sections and related file (Priority: P3)
+
+As an integrator, I add extra `##` sections and an optional `/llms-full.txt` without changing the 1.x llms.txt body when those keys stay at defaults.
+
+**Independent Test**: Empty `sections` / `full_enabled: false` → same index shape as 1.1.0; `full_enabled: true` → `/llms-full.txt` is `text/plain` and the index lists it under `## Related`.
+
 ## Functional requirements
 
 | ID | Requirement |
@@ -42,3 +48,5 @@ As an integrator, I list Symfony route names under `citation_routes` so llms.txt
 | FR-GEO-006 | YAML citations plus tagged `CitationSourceProviderInterface` (URL de-dup) |
 | FR-GEO-007 | `nowo:generative-seo:audit` reports missing llms, citations, or crawler groups |
 | FR-GEO-008 | `citation_routes` emit absolute citation URLs via the Symfony router; missing routes are skipped |
+| FR-GEO-009 | Optional `llms.sections` and `llms.optional_links` append llmstxt.org-style `##` blocks without changing output when empty |
+| FR-GEO-010 | Opt-in `llms-full.txt` (`full_enabled`) registers a related file; index output is unchanged when disabled |

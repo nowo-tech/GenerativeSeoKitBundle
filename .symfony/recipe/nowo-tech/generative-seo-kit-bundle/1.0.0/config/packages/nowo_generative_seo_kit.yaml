@@ -8,4 +8,7 @@ nowo_generative_seo_kit:
         summary: 'Canonical facts for generative engines.'
         description: ''
         contact: ''
+        # sections: []
+        # optional_links: []
+        # full_enabled: false
     citations: []

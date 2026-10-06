@@ -2,6 +2,20 @@
 
 ## Unreleased
 
+## To 1.2.0
+
+Optional `llms.sections` / `llms.optional_links` / `llms.full_*` are additive. Existing `/llms.txt` body is unchanged until you set those keys. Enabling `full_enabled` adds `/llms-full.txt` and a `## Related` block on the index.
+
+## Supported lines
+
+| Bundle | PHP | Symfony | SeoKit |
+|--------|-----|---------|--------|
+| 1.2.x | >= 8.2, < 8.6 | 7.4 / 8.x | ^1.11 |
+| 1.1.x | >= 8.2, < 8.6 | 7.4 / 8.x | ^1.11 |
+| 1.0.x | >= 8.2, < 8.6 | 7.4 / 8.x | ^1.11 |
+
+Dropping a major Symfony line will be documented here before the next minor/major of this bundle.
+
 ## To 1.1.0
 
 Default `nowo_generative_seo_kit.crawlers` includes additional inference (`ChatGPT-User`, `Claude-User`, `Claude-SearchBot`) and training-oriented (`Bytespider`, `anthropic-ai`) groups. To restore the 1.0.0 list, set `crawlers` explicitly to GPTBot, OAI-SearchBot, ClaudeBot, PerplexityBot (allow `/`) and Google-Extended, Applebot-Extended, CCBot (disallow `/`).

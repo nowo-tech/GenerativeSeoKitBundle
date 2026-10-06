@@ -21,6 +21,12 @@ final class ConfigurationTest extends TestCase
         self::assertTrue($processed['llms']['enabled']);
         self::assertSame('/llms.txt', $processed['llms']['path']);
         self::assertSame('/.well-known/llms.txt', $processed['llms']['well_known_path']);
+        self::assertSame([], $processed['llms']['sections']);
+        self::assertSame([], $processed['llms']['optional_links']);
+        self::assertFalse($processed['llms']['full_enabled']);
+        self::assertSame('/llms-full.txt', $processed['llms']['full_path']);
+        self::assertSame('', $processed['llms']['full_well_known_path']);
+        self::assertSame('', $processed['llms']['full_body']);
         self::assertSame(DefaultCrawlerCatalog::defaults(), $processed['crawlers']);
         self::assertSame([], $processed['citations']);
         self::assertSame([], $processed['citation_routes']);

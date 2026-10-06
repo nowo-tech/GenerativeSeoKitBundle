@@ -9,7 +9,7 @@
 | `make shell-symfony8` | Shell in PHP container |
 | `make update-bundle-symfony8` | Sync bundle autoload + clear cache |
 | `make audit-symfony8` | `nowo:generative-seo:audit` in the demo container |
-| `make release-check` | Healthcheck: `/`, `/llms.txt`, `/robots.txt`, plus GEO audit |
+| `make release-check` | Healthcheck: `/`, `/llms.txt`, `/llms-full.txt`, `/robots.txt`, plus GEO audit |
 
 Demo sources: [`symfony8/`](symfony8/).
 

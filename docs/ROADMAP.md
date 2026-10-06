@@ -6,7 +6,7 @@ Shipped history lives in [CHANGELOG.md](CHANGELOG.md). Product behavior lives in
 
 ## Table of contents
 
-- [Current state (v1.1.x)](#current-state-v11x)
+- [Current state (v1.2.x)](#current-state-v12x)
 - [Short term](#short-term)
 - [Medium term](#medium-term)
 - [Long term / ideas](#long-term-ideas)
@@ -14,15 +14,15 @@ Shipped history lives in [CHANGELOG.md](CHANGELOG.md). Product behavior lives in
 
 ---
 
-## Current state (v1.1.x)
+## Current state (v1.2.x)
 
-Current tag **v1.1.0** (PHP >= 8.2, Symfony 7.4 / 8.x, SeoKit `^1.11`).
+Current tag **v1.2.0** (PHP >= 8.2, Symfony 7.4 / 8.x, SeoKit `^1.11`).
 
 Already in the bundle:
 
 - **SeoKit composition** — implements `GeoRobotsGroupsProviderInterface`; does not fork head tags, sitemap, canonical, or robots rendering.
 - **AI crawler policy** — default allow for inference/search bots (`GPTBot`, `ChatGPT-User`, `OAI-SearchBot`, `ClaudeBot`, `Claude-User`, `Claude-SearchBot`, `PerplexityBot`); default disallow for training-oriented agents (`Google-Extended`, `Applebot-Extended`, `CCBot`, `Bytespider`, `anthropic-ai`). Configurable under `nowo_generative_seo_kit.crawlers`.
-- **llms.txt** — `/llms.txt` and `/.well-known/llms.txt` as `text/plain` (`X-Robots-Tag: noindex`).
+- **llms.txt** — `/llms.txt` and `/.well-known/llms.txt` as `text/plain` (`X-Robots-Tag: noindex`). Optional `sections` / `optional_links`; opt-in `/llms-full.txt`.
 - **Citation index** — YAML `citations`, `citation_routes`, plus tagged `CitationSourceProviderInterface` (URL de-dup).
 - **Audit CLI** — `nowo:generative-seo:audit` (`--lenient` for warn-only); demo `make -C demo/symfony8 audit`.
 - **FrankenPHP worker** — request handling stays stateless; see [FRANKENPHP-WORKER-AUDIT.md](FRANKENPHP-WORKER-AUDIT.md).
@@ -52,10 +52,14 @@ Further CMS adapters stay host-specific.
 
 ## Long term / ideas
 
-Not committed; pick up only if the GEO ecosystem settles:
+Shipped as additive 1.x options in **v1.2.0** (see [CHANGELOG.md](CHANGELOG.md)):
 
-- Track `llms.txt` / well-known conventions as they stabilize (extra sections, related files) without breaking the 1.0.x text contract unless a major version is justified.
-- **Backward compatibility** — document supported Symfony versions and the upgrade path in [UPGRADING.md](UPGRADING.md) when dropping a major Symfony line.
+- llmstxt.org extra `##` sections, `## Optional`, and related `/llms-full.txt` without changing the index when keys stay at defaults.
+
+Still not committed:
+
+- Further related files if the GEO ecosystem standardizes names beyond `llms-full.txt`.
+- **Backward compatibility** — supported PHP/Symfony/SeoKit lines are listed in [UPGRADING.md](UPGRADING.md); document the upgrade path there when dropping a major Symfony line.
 
 ---
 

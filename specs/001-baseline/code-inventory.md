@@ -12,9 +12,9 @@ Every production file under `src/` (REQ-SPECKIT-001 / REQ-SPECKIT-003).
 | `Service/CitationSourceProviderInterface.php` | Host citation SPI | FR-GEO-006 |
 | `Service/ConfigCitationSourceProvider.php` | YAML citations | FR-GEO-006 |
 | `Service/RouteCitationSourceProvider.php` | Named-route citations | FR-GEO-008 |
-| `Service/LlmsTxtGenerator.php` | llms.txt body | FR-GEO-002 |
+| `Service/LlmsTxtGenerator.php` | llms.txt / llms-full.txt body | FR-GEO-002, FR-GEO-009, FR-GEO-010 |
 | `Service/SeoKitRobotsGroupsProvider.php` | SeoKit robots bridge | FR-GEO-005 |
 | `Service/GenerativeSeoAuditor.php` | Audit rules | FR-GEO-007 |
-| `Routing/LlmsTxtRouteLoader.php` | Route type | FR-GEO-003 |
-| `Controller/LlmsTxtController.php` | HTTP text/plain | FR-GEO-003 |
+| `Routing/LlmsTxtRouteLoader.php` | Route type | FR-GEO-003, FR-GEO-010 |
+| `Controller/LlmsTxtController.php` | HTTP text/plain | FR-GEO-003, FR-GEO-010 |
 | `Command/GenerativeSeoAuditCommand.php` | CLI | FR-GEO-007 |

@@ -3,6 +3,7 @@
 ## Table of contents
 
 - [llms.txt](#llmstxt)
+- [llms-full.txt](#llms-fulltxt)
 - [Robots bridge](#robots-bridge)
 - [Citation providers](#citation-providers)
 - [Named-route citations](#named-route-citations)
@@ -20,6 +21,18 @@ curl -s https://your-host/.well-known/llms.txt
 ```
 
 Responses are `text/plain` with `X-Robots-Tag: noindex` so the file is a machine index, not a ranking URL.
+
+Optional `llms.sections` and `llms.optional_links` append `##` blocks (llmstxt.org). With empty defaults the 1.x title / summary / citations body is unchanged.
+
+## llms-full.txt
+
+Opt-in related file (`llms.full_enabled: true`):
+
+```bash
+curl -s https://your-host/llms-full.txt
+```
+
+The index then includes a `## Related` link. The full file repeats the index sections plus optional `llms.full_body` under `## Full`. Leave `full_enabled` false to keep the 1.x route set.
 
 ## Robots bridge
 

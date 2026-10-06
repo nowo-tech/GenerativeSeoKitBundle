@@ -4,6 +4,11 @@ All notable changes to this project are documented in this file.
 
 ## Unreleased
 
+## [1.2.0] - 2026-10-06
+
+- Optional llmstxt.org `llms.sections` and `llms.optional_links` on `/llms.txt` (no output change when empty).
+- Opt-in `/llms-full.txt` (`llms.full_enabled`) with `## Related` pointer from the index.
+
 ## [1.1.0] - 2026-10-06
 
 - Default crawler catalog: allow `ChatGPT-User`, `Claude-User`, `Claude-SearchBot`; disallow `Bytespider`, `anthropic-ai`.

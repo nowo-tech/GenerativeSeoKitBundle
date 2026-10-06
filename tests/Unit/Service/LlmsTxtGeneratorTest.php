@@ -76,5 +76,77 @@ final class LlmsTxtGeneratorTest extends TestCase
         $gen = new LlmsTxtGenerator(['citations' => 'nope'], [new ConfigCitationSourceProvider(['citations' => 'nope'])]);
         self::assertSame([], $gen->citations());
         self::assertTrue($gen->isEnabled());
+        self::assertFalse($gen->isFullEnabled());
+    }
+
+    public function testSectionsOptionalAndRelatedFullDocument(): void
+    {
+        $config = [
+            'enabled' => true,
+            'llms'    => [
+                'enabled'      => true,
+                'title'        => 'Acme',
+                'full_enabled' => true,
+                'full_path'    => '/llms-full.txt',
+                'full_body'    => 'Longer context for models.',
+                'sections'     => [
+                    'bad',
+                    ['heading' => '', 'body' => 'skip'],
+                    ['heading' => 'Docs', 'body' => '', 'links' => []],
+                    ['heading' => 'Docs', 'body' => 'Read the handbook.', 'links' => [
+                        'bad',
+                        ['title' => 'Handbook', 'url' => 'https://example.com/docs', 'notes' => 'Start'],
+                    ]],
+                    ['heading' => 'EmptyLinks', 'body' => 'Only body.', 'links' => 'nope'],
+                ],
+                'optional_links' => [
+                    'bad',
+                    ['title' => '', 'url' => 'https://example.com/x'],
+                    ['title' => 'Changelog', 'url' => 'https://example.com/changelog', 'notes' => 1],
+                ],
+            ],
+        ];
+        $gen = new LlmsTxtGenerator($config);
+        self::assertTrue($gen->isFullEnabled());
+        $index = $gen->generate();
+        self::assertStringContainsString('## Docs', $index);
+        self::assertStringContainsString('Read the handbook.', $index);
+        self::assertStringContainsString('[Handbook](https://example.com/docs): Start', $index);
+        self::assertStringContainsString('## EmptyLinks', $index);
+        self::assertStringContainsString('Only body.', $index);
+        self::assertStringContainsString('## Optional', $index);
+        self::assertStringContainsString('[Changelog](https://example.com/changelog)', $index);
+        self::assertStringContainsString('## Related', $index);
+        self::assertStringContainsString('[llms-full.txt](/llms-full.txt)', $index);
+        self::assertStringNotContainsString('## Full', $index);
+
+        $full = $gen->generateFull();
+        self::assertStringContainsString('## Full', $full);
+        self::assertStringContainsString('Longer context for models.', $full);
+        self::assertStringNotContainsString('## Related', $full);
+    }
+
+    public function testFullDisabledWhenMasterOffAndIgnoresInvalidSections(): void
+    {
+        $off = new LlmsTxtGenerator(['enabled' => false, 'llms' => ['full_enabled' => true]]);
+        self::assertFalse($off->isFullEnabled());
+
+        $gen = new LlmsTxtGenerator([
+            'enabled' => true,
+            'llms'    => [
+                'enabled'        => true,
+                'sections'       => 'nope',
+                'optional_links' => 'nope',
+                'full_enabled'   => true,
+                'full_path'      => '',
+                'full_body'      => '',
+            ],
+        ]);
+        $txt = $gen->generate();
+        self::assertStringContainsString('[llms-full.txt](/llms-full.txt)', $txt);
+        self::assertStringNotContainsString('## Optional', $txt);
+        $full = $gen->generateFull();
+        self::assertStringNotContainsString('## Full', $full);
+        self::assertStringNotContainsString('## Related', $full);
     }
 }
