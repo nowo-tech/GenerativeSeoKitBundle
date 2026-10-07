@@ -16,7 +16,7 @@ Shipped history lives in [CHANGELOG.md](CHANGELOG.md). Product behavior lives in
 
 ## Current state (v1.2.x)
 
-Current tag **v1.2.0** (PHP >= 8.2, Symfony 7.4 / 8.x, SeoKit `^1.11`).
+Current tag **v1.3.0** (PHP >= 8.2, Symfony 7.4 / 8.x, SeoKit `^1.11`).
 
 Already in the bundle:
 

@@ -2,6 +2,18 @@
 
 ## Unreleased
 
+## To 1.3.0
+
+Additive. `GeoRuntimeConfigInterface` is aliased to `ConfigGeoRuntimeConfig` (optional `geo` YAML node), so existing apps need no change. To drive the toggle, extra User-agents, or extra llms Markdown from your own storage, implement the interface and override the alias:
+
+```yaml
+services:
+    App\Seo\SiteGeoRuntimeConfig: ~
+    Nowo\GenerativeSeoKitBundle\Service\GeoRuntimeConfigInterface: '@App\Seo\SiteGeoRuntimeConfig'
+```
+
+Behaviour notes: when `isAiRobotsEnabled()` is false the kit contributes no AI groups to SeoKit `robots.txt` (previously it was only controllable via `robots_bridge`). If your host already has a custom `GeoRobotsGroupsProviderInterface` that emits the same extra agents, remove the duplicate or let the kit own them. The `SeoKitRobotsGroupsProvider` / `LlmsTxtGenerator` constructors gained an optional trailing `?GeoRuntimeConfigInterface` argument.
+
 ## To 1.2.0
 
 Optional `llms.sections` / `llms.optional_links` / `llms.full_*` are additive. Existing `/llms.txt` body is unchanged until you set those keys. Enabling `full_enabled` adds `/llms-full.txt` and a `## Related` block on the index.
@@ -10,6 +22,7 @@ Optional `llms.sections` / `llms.optional_links` / `llms.full_*` are additive. E
 
 | Bundle | PHP | Symfony | SeoKit |
 |--------|-----|---------|--------|
+| 1.3.x | >= 8.2, < 8.6 | 7.4 / 8.x | ^1.11 |
 | 1.2.x | >= 8.2, < 8.6 | 7.4 / 8.x | ^1.11 |
 | 1.1.x | >= 8.2, < 8.6 | 7.4 / 8.x | ^1.11 |
 | 1.0.x | >= 8.2, < 8.6 | 7.4 / 8.x | ^1.11 |

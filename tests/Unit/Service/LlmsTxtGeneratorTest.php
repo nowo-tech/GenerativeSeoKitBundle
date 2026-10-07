@@ -6,6 +6,7 @@ namespace Nowo\GenerativeSeoKitBundle\Tests\Unit\Service;
 
 use Nowo\GenerativeSeoKitBundle\Service\CitationSourceProviderInterface;
 use Nowo\GenerativeSeoKitBundle\Service\ConfigCitationSourceProvider;
+use Nowo\GenerativeSeoKitBundle\Service\GeoRuntimeConfigInterface;
 use Nowo\GenerativeSeoKitBundle\Service\LlmsTxtGenerator;
 use PHPUnit\Framework\TestCase;
 
@@ -148,5 +149,51 @@ final class LlmsTxtGeneratorTest extends TestCase
         $full = $gen->generateFull();
         self::assertStringNotContainsString('## Full', $full);
         self::assertStringNotContainsString('## Related', $full);
+    }
+
+    public function testRuntimeExtraMarkdownIsRenderedBeforeCitations(): void
+    {
+        $runtime = new class implements GeoRuntimeConfigInterface {
+            public function isAiRobotsEnabled(): bool
+            {
+                return true;
+            }
+
+            public function extraAiUserAgents(): array
+            {
+                return [];
+            }
+
+            public function llmsExtraMarkdown(): string
+            {
+                return "  ## Clinic notes\n\nOpen Monday to Friday.  ";
+            }
+        };
+        $config = [
+            'enabled'   => true,
+            'llms'      => ['title' => 'Site', 'contact' => 'a@b.c', 'full_body' => 'More'],
+            'citations' => [['title' => 'Home', 'url' => 'https://example.com/']],
+        ];
+        $gen = new LlmsTxtGenerator($config, [new ConfigCitationSourceProvider($config)], $runtime);
+
+        $out = $gen->generate();
+        self::assertStringContainsString("Contact: a@b.c\n\n## Clinic notes\n\nOpen Monday to Friday.\n\n## Citations", $out);
+        self::assertStringContainsString('Open Monday to Friday.', $gen->generateFull());
+    }
+
+    public function testYamlGeoExtraMarkdownIsDefaultSource(): void
+    {
+        $gen = new LlmsTxtGenerator([
+            'enabled' => true,
+            'llms'    => ['title' => 'Site'],
+            'geo'     => ['llms_extra_markdown' => 'Extra from YAML'],
+        ]);
+        self::assertStringContainsString("# Site\n\nExtra from YAML\n", $gen->generate());
+    }
+
+    public function testNoExtraMarkdownKeepsOutputUnchanged(): void
+    {
+        $gen = new LlmsTxtGenerator(['enabled' => true, 'llms' => ['title' => 'Site']]);
+        self::assertSame("# Site\n", $gen->generate());
     }
 }

@@ -6,6 +6,7 @@
 - [llms-full.txt](#llms-fulltxt)
 - [Robots bridge](#robots-bridge)
 - [Citation providers](#citation-providers)
+- [Runtime GEO settings SPI](#runtime-geo-settings-spi)
 - [Named-route citations](#named-route-citations)
 - [Audit CLI](#audit-cli)
 - [Host CI](#host-ci)
@@ -59,6 +60,28 @@ final class BlogCitationProvider implements CitationSourceProviderInterface
 ```
 
 The Symfony 8 demo ships `App\Citation\StaticPagesCitationProvider` as a copy-paste pattern.
+
+## Runtime GEO settings SPI
+
+Hosts that store GEO settings in a database admin implement `GeoRuntimeConfigInterface` and override the alias; the kit has no Doctrine dependency:
+
+```php
+use Nowo\GenerativeSeoKitBundle\Service\GeoRuntimeConfigInterface;
+
+final readonly class SiteGeoRuntimeConfig implements GeoRuntimeConfigInterface
+{
+    public function isAiRobotsEnabled(): bool { /* ... */ }
+    public function extraAiUserAgents(): array { /* list<string> */ }
+    public function llmsExtraMarkdown(): string { /* ... */ }
+}
+```
+
+```yaml
+services:
+    Nowo\GenerativeSeoKitBundle\Service\GeoRuntimeConfigInterface: '@App\Seo\SiteGeoRuntimeConfig'
+```
+
+The kit's `SeoKitRobotsGroupsProvider` then skips all AI groups when disabled, appends extra agents (not already in the crawler catalog), and `LlmsTxtGenerator` renders the extra Markdown after the contact line. Without an override, the YAML `geo` node is used.
 
 ## Named-route citations
 

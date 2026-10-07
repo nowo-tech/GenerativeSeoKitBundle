@@ -30,6 +30,9 @@ final class ConfigurationTest extends TestCase
         self::assertSame(DefaultCrawlerCatalog::defaults(), $processed['crawlers']);
         self::assertSame([], $processed['citations']);
         self::assertSame([], $processed['citation_routes']);
+        self::assertTrue($processed['geo']['ai_robots_enabled']);
+        self::assertSame([], $processed['geo']['extra_ai_user_agents']);
+        self::assertSame('', $processed['geo']['llms_extra_markdown']);
         self::assertInstanceOf(GenerativeSeoKitExtension::class, (new GenerativeSeoKitBundle())->getContainerExtension());
     }
 

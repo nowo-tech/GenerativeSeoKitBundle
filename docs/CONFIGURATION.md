@@ -18,6 +18,16 @@ Configuration root: `nowo_generative_seo_kit`.
 | `enabled` | `true` | Master switch: disables llms.txt routes and robots bridge |
 | `robots_bridge` | `true` | When true, `SeoKitRobotsGroupsProvider` appends AI User-agent groups to SeoKit `robots.txt` |
 
+## geo
+
+Static defaults for the `GeoRuntimeConfigInterface` SPI (see [USAGE.md](USAGE.md#runtime-geo-settings-spi)).
+
+| Key | Default | Description |
+| --- | --- | --- |
+| `geo.ai_robots_enabled` | `true` | When false, no AI crawler groups are added to SeoKit `robots.txt` |
+| `geo.extra_ai_user_agents` | `[]` | Extra User-agent tokens emitted with `Allow: /` |
+| `geo.llms_extra_markdown` | `''` | Markdown appended after the contact line of llms.txt / llms-full.txt |
+
 ## llms
 
 | Key | Default | Description |
@@ -92,3 +102,4 @@ List of `{ route, title, notes?, parameters? }`. `RouteCitationSourceProvider` g
 | Tag / interface | Purpose |
 | --- | --- |
 | `nowo_generative_seo_kit.citation_source_provider` (`CitationSourceProviderInterface`) | Extra citation rows after YAML and `citation_routes` |
+| `Nowo\GenerativeSeoKitBundle\Service\GeoRuntimeConfigInterface` (service alias) | Runtime robots toggle, extra AI User-agents, extra llms Markdown (override the alias) |

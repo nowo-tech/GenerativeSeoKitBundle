@@ -20,6 +20,7 @@ final readonly class LlmsTxtGenerator
     public function __construct(
         private array $config,
         private iterable $citationProviders = [],
+        private ?GeoRuntimeConfigInterface $runtime = null,
     ) {
     }
 
@@ -104,6 +105,12 @@ final readonly class LlmsTxtGenerator
         $contact = is_string($llms['contact'] ?? null) ? trim($llms['contact']) : '';
         if ($contact !== '') {
             $lines[] = 'Contact: ' . $contact;
+            $lines[] = '';
+        }
+
+        $extra = trim(($this->runtime ?? new ConfigGeoRuntimeConfig($this->config))->llmsExtraMarkdown());
+        if ($extra !== '') {
+            $lines[] = $extra;
             $lines[] = '';
         }
 

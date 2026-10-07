@@ -15,14 +15,23 @@ services:
             $urlGenerator: '@?router'
         tags: ['nowo_generative_seo_kit.citation_source_provider']
 
+    Nowo\GenerativeSeoKitBundle\Service\ConfigGeoRuntimeConfig:
+        arguments:
+            $config: '%nowo_generative_seo_kit.config%'
+
+    # Default SPI implementation; hosts override this alias with their own GeoRuntimeConfigInterface service.
+    Nowo\GenerativeSeoKitBundle\Service\GeoRuntimeConfigInterface: '@Nowo\GenerativeSeoKitBundle\Service\ConfigGeoRuntimeConfig'
+
     Nowo\GenerativeSeoKitBundle\Service\LlmsTxtGenerator:
         arguments:
             $config: '%nowo_generative_seo_kit.config%'
+            $runtime: '@Nowo\GenerativeSeoKitBundle\Service\GeoRuntimeConfigInterface'
             $citationProviders: !tagged_iterator nowo_generative_seo_kit.citation_source_provider
 
     Nowo\GenerativeSeoKitBundle\Service\SeoKitRobotsGroupsProvider:
         arguments:
             $config: '%nowo_generative_seo_kit.config%'
+            $runtime: '@Nowo\GenerativeSeoKitBundle\Service\GeoRuntimeConfigInterface'
 
     Nowo\GenerativeSeoKitBundle\Service\GenerativeSeoAuditor: ~
 

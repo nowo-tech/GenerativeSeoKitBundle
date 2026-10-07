@@ -8,7 +8,7 @@
 - [Packagist](#packagist)
 - [Sync missing releases](#sync-missing-releases)
 
-Current stable target: **v1.2.0**.
+Current stable target: **v1.3.0**.
 
 ## Pre-release checklist
 
@@ -35,7 +35,7 @@ make release-check
 ## Tag and GitHub release
 
 ```bash
-git tag -a v1.2.0 -m "Release v1.2.0"
+git tag -a v1.3.0 -m "Release v1.3.0"
 git push origin main
 git push origin v1.2.0
 ```
