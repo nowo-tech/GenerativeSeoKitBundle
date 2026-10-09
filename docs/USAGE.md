@@ -83,6 +83,20 @@ services:
 
 The kit's `SeoKitRobotsGroupsProvider` then skips all AI groups when disabled, appends extra agents (not already in the crawler catalog), and `LlmsTxtGenerator` renders the extra Markdown after the contact line. Without an override, the YAML `geo` node is used.
 
+To also drive the llms.txt title and summary from your storage, let the same service implement the optional `LlmsHeaderRuntimeInterface` (`llmsTitle(): ?string`, `llmsSummary(): ?string`). A `null` or blank value keeps the configured `llms.title` / `llms.summary`:
+
+```php
+use Nowo\GenerativeSeoKitBundle\Service\GeoRuntimeConfigInterface;
+use Nowo\GenerativeSeoKitBundle\Service\LlmsHeaderRuntimeInterface;
+
+final readonly class SiteGeoRuntimeConfig implements GeoRuntimeConfigInterface, LlmsHeaderRuntimeInterface
+{
+    // ... GeoRuntimeConfigInterface methods ...
+    public function llmsTitle(): ?string { /* brand name from the admin */ }
+    public function llmsSummary(): ?string { /* site description from the admin */ }
+}
+```
+
 ## Named-route citations
 
 Prefer `citation_routes` when the canonical URL is a Symfony route (absolute URLs via `framework.router.default_uri` in CLI):

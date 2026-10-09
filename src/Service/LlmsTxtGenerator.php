@@ -84,13 +84,13 @@ final readonly class LlmsTxtGenerator
     private function render(bool $full): string
     {
         $llms  = is_array($this->config['llms'] ?? null) ? $this->config['llms'] : [];
-        $title = is_string($llms['title'] ?? null) ? trim($llms['title']) : '';
+        $title = $this->runtimeHeader('title') ?? (is_string($llms['title'] ?? null) ? trim($llms['title']) : '');
         $lines = [];
 
         $lines[] = '# ' . ($title !== '' ? $title : 'llms.txt');
         $lines[] = '';
 
-        $summary = is_string($llms['summary'] ?? null) ? trim($llms['summary']) : '';
+        $summary = $this->runtimeHeader('summary') ?? (is_string($llms['summary'] ?? null) ? trim($llms['summary']) : '');
         if ($summary !== '') {
             $lines[] = '> ' . $summary;
             $lines[] = '';
@@ -255,5 +255,19 @@ final readonly class LlmsTxtGenerator
         }
 
         return $lines;
+    }
+
+    /**
+     * Title / summary from {@see LlmsHeaderRuntimeInterface} when the runtime implements it.
+     */
+    private function runtimeHeader(string $field): ?string
+    {
+        if (!$this->runtime instanceof LlmsHeaderRuntimeInterface) {
+            return null;
+        }
+
+        $value = trim((string) ($field === 'title' ? $this->runtime->llmsTitle() : $this->runtime->llmsSummary()));
+
+        return $value !== '' ? $value : null;
     }
 }

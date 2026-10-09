@@ -7,6 +7,7 @@ namespace Nowo\GenerativeSeoKitBundle\Tests\Unit\Service;
 use Nowo\GenerativeSeoKitBundle\Service\CitationSourceProviderInterface;
 use Nowo\GenerativeSeoKitBundle\Service\ConfigCitationSourceProvider;
 use Nowo\GenerativeSeoKitBundle\Service\GeoRuntimeConfigInterface;
+use Nowo\GenerativeSeoKitBundle\Service\LlmsHeaderRuntimeInterface;
 use Nowo\GenerativeSeoKitBundle\Service\LlmsTxtGenerator;
 use PHPUnit\Framework\TestCase;
 
@@ -195,5 +196,42 @@ final class LlmsTxtGeneratorTest extends TestCase
     {
         $gen = new LlmsTxtGenerator(['enabled' => true, 'llms' => ['title' => 'Site']]);
         self::assertSame("# Site\n", $gen->generate());
+    }
+
+    public function testRuntimeHeaderOverridesConfiguredTitleAndSummary(): void
+    {
+        $config  = ['enabled' => true, 'llms' => ['enabled' => true, 'title' => 'YAML title', 'summary' => 'YAML summary']];
+        $runtime = new class implements GeoRuntimeConfigInterface, LlmsHeaderRuntimeInterface {
+            public function isAiRobotsEnabled(): bool
+            {
+                return true;
+            }
+
+            public function extraAiUserAgents(): array
+            {
+                return [];
+            }
+
+            public function llmsExtraMarkdown(): string
+            {
+                return '';
+            }
+
+            public function llmsTitle(): string
+            {
+                return 'Clinic from DB';
+            }
+
+            public function llmsSummary(): string
+            {
+                return '  ';
+            }
+        };
+
+        $text = (new LlmsTxtGenerator($config, [], $runtime))->generate();
+
+        self::assertStringStartsWith('# Clinic from DB', $text);
+        self::assertStringContainsString('> YAML summary', $text, 'Blank runtime value keeps the configured one.');
+        self::assertStringNotContainsString('YAML title', $text);
     }
 }

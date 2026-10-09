@@ -103,3 +103,4 @@ List of `{ route, title, notes?, parameters? }`. `RouteCitationSourceProvider` g
 | --- | --- |
 | `nowo_generative_seo_kit.citation_source_provider` (`CitationSourceProviderInterface`) | Extra citation rows after YAML and `citation_routes` |
 | `Nowo\GenerativeSeoKitBundle\Service\GeoRuntimeConfigInterface` (service alias) | Runtime robots toggle, extra AI User-agents, extra llms Markdown (override the alias) |
+| `Nowo\GenerativeSeoKitBundle\Service\LlmsHeaderRuntimeInterface` (optional, on the same service) | Runtime llms.txt title / summary; blank keeps `llms.title` / `llms.summary` |
