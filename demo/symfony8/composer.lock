@@ -142,16 +142,16 @@
         },
         {
             "name": "nowo-tech/form-kit-bundle",
-            "version": "v2.5.4",
+            "version": "v2.6.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nowo-tech/FormKitBundle.git",
-                "reference": "7729cd5d9a6a8c7a537b439991fd80794e09e1b6"
+                "reference": "89e1f07c15b54c18611834d935bb85d0264405c2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nowo-tech/FormKitBundle/zipball/7729cd5d9a6a8c7a537b439991fd80794e09e1b6",
-                "reference": "7729cd5d9a6a8c7a537b439991fd80794e09e1b6",
+                "url": "https://api.github.com/repos/nowo-tech/FormKitBundle/zipball/89e1f07c15b54c18611834d935bb85d0264405c2",
+                "reference": "89e1f07c15b54c18611834d935bb85d0264405c2",
                 "shasum": ""
             },
             "require": {
@@ -169,7 +169,7 @@
             },
             "require-dev": {
                 "friendsofphp/php-cs-fixer": "^3.95.11",
-                "igor-php/igor-php": "^0.9.7",
+                "igor-php/igor-php": "^0.10.0",
                 "nowo-tech/phpstan-frankenphp": "^1.0",
                 "phpstan/extension-installer": "^1.2",
                 "phpstan/phpstan": "^2.0",
@@ -245,7 +245,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2026-09-27T16:22:13+00:00"
+            "time": "2026-10-07T17:05:58+00:00"
         },
         {
             "name": "nowo-tech/generative-seo-kit-bundle",
@@ -253,7 +253,7 @@
             "dist": {
                 "type": "path",
                 "url": "/var/generative-seo-kit-bundle",
-                "reference": "89abb1e349761cf7b20368a2592220e313fcf67f"
+                "reference": "ffb6b8ab03860955cfb9de3ac2c74be37133f202"
             },
             "require": {
                 "nowo-tech/seo-kit-bundle": "^1.11",
@@ -284,7 +284,7 @@
             "type": "symfony-bundle",
             "extra": {
                 "branch-alias": {
-                    "dev-main": "1.0.x-dev"
+                    "dev-main": "1.2.x-dev"
                 }
             },
             "autoload": {
@@ -2389,16 +2389,16 @@
         },
         {
             "name": "symfony/polyfill-deepclone",
-            "version": "v1.43.0",
+            "version": "v1.43.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-deepclone.git",
-                "reference": "8db92c5508a3f7f82d8688d32f0a4868a26e58ad"
+                "reference": "aaba44b6ee7299ae65717811c55b57ab9bc0fedd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/polyfill-deepclone/zipball/8db92c5508a3f7f82d8688d32f0a4868a26e58ad",
-                "reference": "8db92c5508a3f7f82d8688d32f0a4868a26e58ad",
+                "url": "https://api.github.com/repos/symfony/polyfill-deepclone/zipball/aaba44b6ee7299ae65717811c55b57ab9bc0fedd",
+                "reference": "aaba44b6ee7299ae65717811c55b57ab9bc0fedd",
                 "shasum": ""
             },
             "require": {
@@ -2452,7 +2452,7 @@
                 "shim"
             ],
             "support": {
-                "source": "https://github.com/symfony/polyfill-deepclone/tree/v1.43.0"
+                "source": "https://github.com/symfony/polyfill-deepclone/tree/v1.43.1"
             },
             "funding": [
                 {
@@ -2472,7 +2472,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-09-30T09:07:27+00:00"
+            "time": "2026-10-06T19:46:18+00:00"
         },
         {
             "name": "symfony/polyfill-intl-grapheme",
@@ -4499,16 +4499,16 @@
     "packages-dev": [
         {
             "name": "nowo-tech/hot-reload-bundle",
-            "version": "v1.5.4",
+            "version": "v1.5.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nowo-tech/HotReloadBundle.git",
-                "reference": "b4e89943bf55d0423e18dc253bf5f0afd47cd7b3"
+                "reference": "7584eadd1e130038b4952188096b1af07a4c1806"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nowo-tech/HotReloadBundle/zipball/b4e89943bf55d0423e18dc253bf5f0afd47cd7b3",
-                "reference": "b4e89943bf55d0423e18dc253bf5f0afd47cd7b3",
+                "url": "https://api.github.com/repos/nowo-tech/HotReloadBundle/zipball/7584eadd1e130038b4952188096b1af07a4c1806",
+                "reference": "7584eadd1e130038b4952188096b1af07a4c1806",
                 "shasum": ""
             },
             "require": {
@@ -4586,7 +4586,7 @@
                 "issues": "https://github.com/nowo-tech/HotReloadBundle/issues",
                 "source": "https://github.com/nowo-tech/HotReloadBundle"
             },
-            "time": "2026-09-27T16:22:13+00:00"
+            "time": "2026-10-09T07:31:19+00:00"
         },
         {
             "name": "nowo-tech/twig-inspector-bundle",
