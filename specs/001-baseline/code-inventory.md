@@ -12,7 +12,10 @@ Every production file under `src/` (REQ-SPECKIT-001 / REQ-SPECKIT-003).
 | `Service/CitationSourceProviderInterface.php` | Host citation SPI | FR-GEO-006 |
 | `Service/ConfigCitationSourceProvider.php` | YAML citations | FR-GEO-006 |
 | `Service/RouteCitationSourceProvider.php` | Named-route citations | FR-GEO-008 |
-| `Service/LlmsTxtGenerator.php` | llms.txt / llms-full.txt body | FR-GEO-002, FR-GEO-009, FR-GEO-010 |
+| `Service/GeoRuntimeConfigInterface.php` | Runtime GEO settings SPI | FR-GEO-011 |
+| `Service/ConfigGeoRuntimeConfig.php` | Default SPI from `geo` YAML | FR-GEO-011 |
+| `Service/LlmsHeaderRuntimeInterface.php` | Optional runtime llms title / summary SPI | FR-GEO-012 |
+| `Service/LlmsTxtGenerator.php` | llms.txt / llms-full.txt body | FR-GEO-002, FR-GEO-009, FR-GEO-010, FR-GEO-011, FR-GEO-012 |
 | `Service/SeoKitRobotsGroupsProvider.php` | SeoKit robots bridge | FR-GEO-005 |
 | `Service/GenerativeSeoAuditor.php` | Audit rules | FR-GEO-007 |
 | `Routing/LlmsTxtRouteLoader.php` | Route type | FR-GEO-003, FR-GEO-010 |

@@ -50,3 +50,5 @@ As an integrator, I add extra `##` sections and an optional `/llms-full.txt` wit
 | FR-GEO-008 | `citation_routes` emit absolute citation URLs via the Symfony router; missing routes are skipped |
 | FR-GEO-009 | Optional `llms.sections` and `llms.optional_links` append llmstxt.org-style `##` blocks without changing output when empty |
 | FR-GEO-010 | Opt-in `llms-full.txt` (`full_enabled`) registers a related file; index output is unchanged when disabled |
+| FR-GEO-011 | `GeoRuntimeConfigInterface` SPI (default `ConfigGeoRuntimeConfig` reading the `geo` node) supplies the AI robots toggle, extra AI User-agents and extra llms Markdown at runtime; hosts override the service alias |
+| FR-GEO-012 | When the runtime service also implements optional `LlmsHeaderRuntimeInterface`, non-blank `llmsTitle()` / `llmsSummary()` replace `llms.title` / `llms.summary`; null or blank keeps the YAML value |

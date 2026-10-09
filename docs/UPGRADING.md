@@ -2,6 +2,16 @@
 
 ## Unreleased
 
+## To 1.4.0
+
+From **1.3.0** — additive, no breaking changes.
+
+```bash
+composer update nowo-tech/generative-seo-kit-bundle
+```
+
+- New optional `LlmsHeaderRuntimeInterface` (`llmsTitle(): ?string`, `llmsSummary(): ?string`). If the service behind your `GeoRuntimeConfigInterface` alias implements it, non-blank values replace `llms.title` / `llms.summary` in `/llms.txt` and `/llms-full.txt`. Without it, output is unchanged. See [USAGE.md](USAGE.md#runtime-geo-settings-spi).
+
 ## To 1.3.0
 
 Additive. `GeoRuntimeConfigInterface` is aliased to `ConfigGeoRuntimeConfig` (optional `geo` YAML node), so existing apps need no change. To drive the toggle, extra User-agents, or extra llms Markdown from your own storage, implement the interface and override the alias:
@@ -22,6 +32,7 @@ Optional `llms.sections` / `llms.optional_links` / `llms.full_*` are additive. E
 
 | Bundle | PHP | Symfony | SeoKit |
 |--------|-----|---------|--------|
+| 1.4.x | >= 8.2, < 8.6 | 7.4 / 8.x | ^1.11 |
 | 1.3.x | >= 8.2, < 8.6 | 7.4 / 8.x | ^1.11 |
 | 1.2.x | >= 8.2, < 8.6 | 7.4 / 8.x | ^1.11 |
 | 1.1.x | >= 8.2, < 8.6 | 7.4 / 8.x | ^1.11 |

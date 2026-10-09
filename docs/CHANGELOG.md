@@ -4,6 +4,17 @@ All notable changes to this project are documented in this file.
 
 ## Unreleased
 
+## [1.4.0] - 2026-10-09
+
+### Added
+
+- `LlmsHeaderRuntimeInterface` (optional, next to `GeoRuntimeConfigInterface`): when the runtime service implements it, `llmsTitle()` / `llmsSummary()` replace the configured `llms.title` / `llms.summary` (blank keeps the YAML value), so hosts can drive them from a database admin.
+- Specs: FR-GEO-011 (runtime GEO SPI) and FR-GEO-012 (runtime llms header) with code-inventory rows.
+
+### Dependencies
+
+- `nowo-tech/form-kit-bundle` 2.6.0 (lockfile); dev tooling `phpstan/phpstan` 2.3.1, `phpstan/phpstan-phpunit` 2.1.1, `nowo-tech/phpstan-frankenphp` 1.2.3.
+
 ## [1.3.0] - 2026-10-07
 
 - `GeoRuntimeConfigInterface` SPI (`isAiRobotsEnabled()`, `extraAiUserAgents()`, `llmsExtraMarkdown()`) so hosts can supply runtime GEO settings (for example from a database admin) without Doctrine in the kit.
