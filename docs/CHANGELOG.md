@@ -4,6 +4,15 @@ All notable changes to this project are documented in this file.
 
 ## Unreleased
 
+### Fixed
+
+- `llms.txt`: the title and summary (runtime `LlmsHeaderRuntimeInterface` values and YAML `llms.title` / `llms.summary`) have newlines and runs of whitespace collapsed to a single space, so a multi-line value can no longer inject its own Markdown sections or links.
+- `llms.txt`: the "Related → llms-full.txt" link is only emitted when the llms-full route is actually registered. When `full_path` collides with `path` / `well_known_path` the route loader skips it; the link now points to `full_well_known_path` if that route exists, or is omitted.
+
+### Changed
+
+- CI: the test matrix now includes PHP 8.5 (Symfony 7.4, 8.0, 8.1), matching the `php: >=8.2 <8.6` constraint.
+
 ## [1.4.1] - 2026-10-13
 
 ### Changed

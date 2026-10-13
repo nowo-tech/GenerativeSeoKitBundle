@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace Nowo\GenerativeSeoKitBundle\Service;
 
+use Nowo\GenerativeSeoKitBundle\Routing\LlmsTxtRouteLoader;
+
+use function in_array;
 use function is_array;
 use function is_string;
 use function trim;
@@ -84,13 +87,13 @@ final readonly class LlmsTxtGenerator
     private function render(bool $full): string
     {
         $llms  = is_array($this->config['llms'] ?? null) ? $this->config['llms'] : [];
-        $title = $this->runtimeHeader('title') ?? (is_string($llms['title'] ?? null) ? trim($llms['title']) : '');
+        $title = $this->singleLine($this->runtimeHeader('title') ?? (is_string($llms['title'] ?? null) ? $llms['title'] : ''));
         $lines = [];
 
         $lines[] = '# ' . ($title !== '' ? $title : 'llms.txt');
         $lines[] = '';
 
-        $summary = $this->runtimeHeader('summary') ?? (is_string($llms['summary'] ?? null) ? trim($llms['summary']) : '');
+        $summary = $this->singleLine($this->runtimeHeader('summary') ?? (is_string($llms['summary'] ?? null) ? $llms['summary'] : ''));
         if ($summary !== '') {
             $lines[] = '> ' . $summary;
             $lines[] = '';
@@ -157,15 +160,42 @@ final readonly class LlmsTxtGenerator
                 $lines[] = $body;
                 $lines[] = '';
             }
-        } elseif ($this->isFullEnabled()) {
-            $fullPath = is_string($llms['full_path'] ?? null) && $llms['full_path'] !== '' ? $llms['full_path'] : '/llms-full.txt';
-            $lines[]  = '## Related';
-            $lines[]  = '';
-            $lines[]  = '- [llms-full.txt](' . $fullPath . ')';
-            $lines[]  = '';
+        } elseif ($this->isFullEnabled() && ($fullUrl = $this->fullDocumentPath($llms)) !== null) {
+            $lines[] = '## Related';
+            $lines[] = '';
+            $lines[] = '- [llms-full.txt](' . $fullUrl . ')';
+            $lines[] = '';
         }
 
         return implode("\n", $lines);
+    }
+
+    /**
+     * Path of a registered llms-full.txt route, mirroring {@see LlmsTxtRouteLoader}:
+     * full_path is skipped when it collides with path / well_known_path, then full_well_known_path is the fallback.
+     *
+     * @param array<string, mixed> $llms
+     */
+    private function fullDocumentPath(array $llms): ?string
+    {
+        $path      = is_string($llms['path'] ?? null) && $llms['path'] !== '' ? $llms['path'] : '/llms.txt';
+        $wellKnown = is_string($llms['well_known_path'] ?? null) ? $llms['well_known_path'] : '';
+        $fullPath  = is_string($llms['full_path'] ?? null) && $llms['full_path'] !== '' ? $llms['full_path'] : '/llms-full.txt';
+        if ($fullPath !== $path && $fullPath !== $wellKnown) {
+            return $fullPath;
+        }
+
+        $fullWellKnown = is_string($llms['full_well_known_path'] ?? null) ? $llms['full_well_known_path'] : '';
+
+        return in_array($fullWellKnown, ['', $fullPath, $path, $wellKnown], true) ? null : $fullWellKnown;
+    }
+
+    /**
+     * Title and summary are single Markdown lines: a newline would let the value open its own section.
+     */
+    private function singleLine(string $value): string
+    {
+        return trim((string) preg_replace('/[ \t\n\r\f\v]+/', ' ', $value));
     }
 
     /**

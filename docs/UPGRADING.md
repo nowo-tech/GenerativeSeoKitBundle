@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+No configuration changes. `llms.txt` output can differ in two cases: a multi-line `llms.title` / `llms.summary` (YAML or runtime) is now rendered on one line, and the "Related" link to llms-full.txt disappears when `full_path` collides with `path` / `well_known_path` (that route was never registered, so the link was a 404) unless `full_well_known_path` provides the route.
+
 ## To 1.4.1
 
 From **1.4.0** — dependency refresh and repository maintenance.

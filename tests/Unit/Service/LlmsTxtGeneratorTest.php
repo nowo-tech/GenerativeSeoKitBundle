@@ -4,11 +4,13 @@ declare(strict_types=1);
 
 namespace Nowo\GenerativeSeoKitBundle\Tests\Unit\Service;
 
+use Nowo\GenerativeSeoKitBundle\Routing\LlmsTxtRouteLoader;
 use Nowo\GenerativeSeoKitBundle\Service\CitationSourceProviderInterface;
 use Nowo\GenerativeSeoKitBundle\Service\ConfigCitationSourceProvider;
 use Nowo\GenerativeSeoKitBundle\Service\GeoRuntimeConfigInterface;
 use Nowo\GenerativeSeoKitBundle\Service\LlmsHeaderRuntimeInterface;
 use Nowo\GenerativeSeoKitBundle\Service\LlmsTxtGenerator;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 final class LlmsTxtGeneratorTest extends TestCase
@@ -233,5 +235,86 @@ final class LlmsTxtGeneratorTest extends TestCase
         self::assertStringStartsWith('# Clinic from DB', $text);
         self::assertStringContainsString('> YAML summary', $text, 'Blank runtime value keeps the configured one.');
         self::assertStringNotContainsString('YAML title', $text);
+    }
+
+    public function testRuntimeTitleAndSummaryCannotInjectMarkdownSections(): void
+    {
+        $runtime = new class implements GeoRuntimeConfigInterface, LlmsHeaderRuntimeInterface {
+            public function isAiRobotsEnabled(): bool
+            {
+                return true;
+            }
+
+            public function extraAiUserAgents(): array
+            {
+                return [];
+            }
+
+            public function llmsExtraMarkdown(): string
+            {
+                return '';
+            }
+
+            public function llmsTitle(): string
+            {
+                return "Clinic\n\n## Injected\n- [evil](https://evil.example)";
+            }
+
+            public function llmsSummary(): string
+            {
+                return "Line one\r\n# Fake\tsummary";
+            }
+        };
+
+        $text = (new LlmsTxtGenerator(['enabled' => true, 'llms' => ['enabled' => true]], [], $runtime))->generate();
+
+        self::assertSame("# Clinic ## Injected - [evil](https://evil.example)\n\n> Line one # Fake summary\n", $text);
+    }
+
+    public function testConfiguredTitleAndSummaryAreSingleLines(): void
+    {
+        $gen = new LlmsTxtGenerator(['enabled' => true, 'llms' => ['title' => "Acme\nCorp", 'summary' => " Café  à\n la carte "]]);
+
+        self::assertSame("# Acme Corp\n\n> Café à la carte\n", $gen->generate());
+    }
+
+    /**
+     * @return iterable<string, array{array<string, mixed>, ?string}>
+     */
+    public static function relatedLinkProvider(): iterable
+    {
+        yield 'distinct full path' => [['full_path' => '/llms-full.txt'], '/llms-full.txt'];
+        yield 'full path collides with path' => [['path' => '/ai.txt', 'full_path' => '/ai.txt'], null];
+        yield 'full path collides with well-known path' => [['well_known_path' => '/.well-known/llms.txt', 'full_path' => '/.well-known/llms.txt'], null];
+        yield 'collision falls back to full well-known path' => [['full_path' => '/llms.txt', 'full_well_known_path' => '/.well-known/llms-full.txt'], '/.well-known/llms-full.txt'];
+        yield 'full well-known path also collides' => [['full_path' => '/llms.txt', 'well_known_path' => '/wk.txt', 'full_well_known_path' => '/wk.txt'], null];
+    }
+
+    /**
+     * @param array<string, mixed> $llms
+     */
+    #[DataProvider('relatedLinkProvider')]
+    public function testRelatedLinkOnlyPointsToARegisteredFullRoute(array $llms, ?string $expected): void
+    {
+        $config = ['enabled' => true, 'llms' => ['enabled' => true, 'full_enabled' => true] + $llms];
+        $index  = (new LlmsTxtGenerator($config))->generate();
+
+        $routes    = (new LlmsTxtRouteLoader($config))->load('.', 'nowo_generative_seo_kit');
+        $fullPaths = [];
+        foreach ($routes as $route) {
+            if ($route->getDefault('_llms_variant') === 'full') {
+                $fullPaths[] = $route->getPath();
+            }
+        }
+
+        if ($expected === null) {
+            self::assertStringNotContainsString('## Related', $index);
+            self::assertSame([], $fullPaths);
+
+            return;
+        }
+
+        self::assertStringContainsString('- [llms-full.txt](' . $expected . ')', $index);
+        self::assertContains($expected, $fullPaths);
     }
 }
