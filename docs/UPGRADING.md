@@ -2,6 +2,14 @@
 
 ## Unreleased
 
+## To 1.5.0
+
+From **1.4.1** — single-line llms.txt title/summary; Related link only for a registered full route; PHP 8.5 in CI.
+
+```bash
+composer update nowo-tech/generative-seo-kit-bundle
+```
+
 No configuration changes. `llms.txt` output can differ in two cases: a multi-line `llms.title` / `llms.summary` (YAML or runtime) is now rendered on one line, and the "Related" link to llms-full.txt disappears when `full_path` collides with `path` / `well_known_path` (that route was never registered, so the link was a 404) unless `full_well_known_path` provides the route.
 
 ## To 1.4.1

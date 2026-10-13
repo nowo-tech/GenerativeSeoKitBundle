@@ -4,6 +4,8 @@ All notable changes to this project are documented in this file.
 
 ## Unreleased
 
+## [1.5.0] - 2026-10-13
+
 ### Fixed
 
 - `llms.txt`: the title and summary (runtime `LlmsHeaderRuntimeInterface` values and YAML `llms.title` / `llms.summary`) have newlines and runs of whitespace collapsed to a single space, so a multi-line value can no longer inject its own Markdown sections or links.
