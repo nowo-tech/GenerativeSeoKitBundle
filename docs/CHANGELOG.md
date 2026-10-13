@@ -4,9 +4,16 @@ All notable changes to this project are documented in this file.
 
 ## Unreleased
 
+## [1.4.1] - 2026-10-13
+
 ### Changed
 
 - Development: `composer.json` pins `config.platform.php` to 8.2.0 so the committed lock stays installable on the minimum PHP; CI overrides the platform per matrix cell.
+- Repository: `.twig-cs-fixer.cache` is now git-ignored.
+
+### Dependencies
+
+- `nowo-tech/seo-kit-bundle` 1.11.1 → 1.12.0 (development lock; #1).
 
 ## [1.4.0] - 2026-10-09
 

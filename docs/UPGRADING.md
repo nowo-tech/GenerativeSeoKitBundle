@@ -2,6 +2,16 @@
 
 ## Unreleased
 
+## To 1.4.1
+
+From **1.4.0** — dependency refresh and repository maintenance.
+
+```bash
+composer update nowo-tech/generative-seo-kit-bundle
+```
+
+- No breaking changes. No application upgrade steps.
+
 ## To 1.4.0
 
 From **1.3.0** — additive, no breaking changes.
