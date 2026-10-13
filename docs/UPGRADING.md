@@ -1,5 +1,17 @@
 # Upgrading
 
+## Table of contents
+
+- [Unreleased](#unreleased)
+- [To 1.5.0](#to-150)
+- [To 1.4.1](#to-141)
+- [To 1.4.0](#to-140)
+- [To 1.3.0](#to-130)
+- [To 1.2.0](#to-120)
+- [Supported lines](#supported-lines)
+- [To 1.1.0](#to-110)
+- [To 1.0.0](#to-100)
+
 ## Unreleased
 
 ## To 1.5.0
