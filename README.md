@@ -94,7 +94,8 @@ See [docs/DEMO-FRANKENPHP.md](docs/DEMO-FRANKENPHP.md).
 
 <table>
   <tr>
-    <td><img src="docs/images/demo/overview.png" alt="Demo home: llms.txt, robots.txt and sitemap links" width="640"></td>
+    <td><img src="docs/images/demo/overview.webp" alt="Demo home: llms.txt, robots.txt and sitemap links" width="640"></td>
+    <td><img src="docs/images/demo/llms.webp" alt="Generated llms.txt: citations, docs, optional and related sections" width="640"></td>
   </tr>
 </table>
 

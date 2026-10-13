@@ -17,4 +17,12 @@ test.describe('feature screenshots', () => {
     await expect(panel).toBeVisible();
     await panel.screenshot({ path: resolve(outDir, 'overview.png') });
   });
+
+  test('llms — generated /llms.txt (citations, docs, optional, related)', async ({ page }) => {
+    await page.setViewportSize({ width: 960, height: 600 });
+    const response = await page.goto('/llms.txt');
+    expect(response?.status()).toBe(200);
+    await expect(page.locator('body')).toContainText('## Citations');
+    await page.screenshot({ path: resolve(outDir, 'llms.png'), fullPage: true });
+  });
 });
