@@ -7,6 +7,7 @@ use Nowo\GenerativeSeoKitBundle\GenerativeSeoKitBundle;
 use Nowo\HotReloadBundle\NowoHotReloadBundle;
 use Nowo\SeoKitBundle\SeoKitBundle;
 use Nowo\TwigInspectorBundle\NowoTwigInspectorBundle;
+use Nowo\UiKitBundle\NowoUiKitBundle;
 use Symfony\Bundle\DebugBundle\DebugBundle;
 use Symfony\Bundle\FrameworkBundle\FrameworkBundle;
 use Symfony\Bundle\TwigBundle\TwigBundle;
@@ -18,6 +19,7 @@ return [
     TwigBundle::class              => ['all' => true],
     NowoFormKitBundle::class       => ['all' => true],
     SeoKitBundle::class            => ['all' => true],
+    NowoUiKitBundle::class         => ['all' => true],
     GenerativeSeoKitBundle::class  => ['all' => true],
     WebProfilerBundle::class       => ['dev' => true, 'test' => true],
     DebugBundle::class             => ['dev' => true],
