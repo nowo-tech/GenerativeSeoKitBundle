@@ -1,6 +1,6 @@
 # Generative SEO Kit Bundle
 
-[![CI](https://github.com/nowo-tech/GenerativeSeoKitBundle/actions/workflows/ci.yml/badge.svg)](https://github.com/nowo-tech/GenerativeSeoKitBundle/actions/workflows/ci.yml) [![Packagist Version](https://img.shields.io/packagist/v/nowo-tech/generative-seo-kit-bundle.svg?style=flat)](https://packagist.org/packages/nowo-tech/generative-seo-kit-bundle) [![Packagist Downloads](https://img.shields.io/packagist/dt/nowo-tech/generative-seo-kit-bundle.svg)](https://packagist.org/packages/nowo-tech/generative-seo-kit-bundle) [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE) [![PHP](https://img.shields.io/badge/PHP-8.2%2B-777BB4?logo=php)](https://php.net) [![Symfony](https://img.shields.io/badge/Symfony-7.4%20%7C%208.0%20%7C%208.1%2B-000000?logo=symfony)](https://symfony.com) [![Coverage](https://img.shields.io/badge/Coverage-100%25-brightgreen)](#tests-and-coverage)
+[![CI](https://github.com/nowo-tech/GenerativeSeoKitBundle/actions/workflows/ci.yml/badge.svg)](https://github.com/nowo-tech/GenerativeSeoKitBundle/actions/workflows/ci.yml) [![Packagist Version](https://img.shields.io/packagist/v/nowo-tech/generative-seo-kit-bundle.svg?style=flat)](https://packagist.org/packages/nowo-tech/generative-seo-kit-bundle) [![Packagist Downloads](https://img.shields.io/packagist/dt/nowo-tech/generative-seo-kit-bundle.svg)](https://packagist.org/packages/nowo-tech/generative-seo-kit-bundle) [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE) [![PHP](https://img.shields.io/badge/PHP-8.2%2B-777BB4?logo=php)](https://php.net) [![Symfony](https://img.shields.io/badge/Symfony-7.4%20%7C%208.0%20%7C%208.1%2B-000000?logo=symfony)](https://symfony.com) [![GitHub stars](https://img.shields.io/github/stars/nowo-tech/generative-seo-kit-bundle.svg?style=social&label=Star)](https://github.com/nowo-tech/GenerativeSeoKitBundle) [![Coverage](https://img.shields.io/badge/Coverage-100%25-brightgreen)](#tests-and-coverage)
 
 > ⭐ **Found this useful?** Give it a star on GitHub! It helps us maintain and improve the project.
 
@@ -15,10 +15,10 @@ This bundle is **FrankenPHP worker mode friendly**.
 - [Features](#features)
 - [Installation](#installation)
 - [Requirements](#requirements)
-- [Documentation](#documentation)
-  - [Additional documentation](#additional-documentation)
 - [Version information](#version-information)
 - [Demos](#demos)
+- [Documentation](#documentation)
+  - [Additional documentation](#additional-documentation)
 - [Tests and coverage](#tests-and-coverage)
 - [License](#license)
 
@@ -52,30 +52,6 @@ Nowo\GenerativeSeoKitBundle\GenerativeSeoKitBundle::class => ['all' => true],
 - Symfony **7.4+** or **8.x**
 - `nowo-tech/seo-kit-bundle` ^1.11
 
-## Documentation
-
-- [Installation](docs/INSTALLATION.md)
-- [Configuration](docs/CONFIGURATION.md)
-- [PSR evaluation (REQ-CS-007)](docs/PSR.md)
-- [Usage](docs/USAGE.md)
-- [Contributing](docs/CONTRIBUTING.md)
-- [Code of Conduct](CODE_OF_CONDUCT.md)
-- [Changelog](docs/CHANGELOG.md)
-- [Roadmap](docs/ROADMAP.md)
-- [Upgrading](docs/UPGRADING.md)
-- [Release](docs/RELEASE.md)
-- [Security](docs/SECURITY.md)
-- [Engram](docs/ENGRAM.md)
-- [Spec-driven development](docs/SPEC-DRIVEN-DEVELOPMENT.md)
-- [GitHub Spec Kit](docs/SPEC-KIT.md)
-
-### Additional documentation
-
-- [Demo with FrankenPHP](docs/DEMO-FRANKENPHP.md) (includes worker mode)
-- [FrankenPHP worker audit](docs/FRANKENPHP-WORKER-AUDIT.md)
-- [Server cookbook (Nginx, php-fpm, FrankenPHP)](docs/SERVERS.md)
-- [GitHub Actions CI requirements](docs/GITHUB_CI.md)
-
 ## Version information
 
 | Version | PHP | Symfony | Status |
@@ -98,6 +74,30 @@ See [docs/DEMO-FRANKENPHP.md](docs/DEMO-FRANKENPHP.md).
     <td><img src="docs/images/demo/llms.webp" alt="Generated llms.txt: citations, docs, optional and related sections" width="640"></td>
   </tr>
 </table>
+
+## Documentation
+
+- [Installation](docs/INSTALLATION.md)
+- [Configuration](docs/CONFIGURATION.md)
+- [Usage](docs/USAGE.md)
+- [Contributing](docs/CONTRIBUTING.md)
+- [Code of Conduct](CODE_OF_CONDUCT.md)
+- [Changelog](docs/CHANGELOG.md)
+- [Upgrading](docs/UPGRADING.md)
+- [Release](docs/RELEASE.md)
+- [Security](docs/SECURITY.md)
+- [Engram](docs/ENGRAM.md)
+- [Spec-driven development](docs/SPEC-DRIVEN-DEVELOPMENT.md)
+- [GitHub Spec Kit](docs/SPEC-KIT.md)
+- [Roadmap](docs/ROADMAP.md)
+
+### Additional documentation
+
+- [PSR evaluation (REQ-CS-007)](docs/PSR.md)
+- [Demo with FrankenPHP](docs/DEMO-FRANKENPHP.md) (includes worker mode)
+- [FrankenPHP worker audit](docs/FRANKENPHP-WORKER-AUDIT.md)
+- [Server cookbook (Nginx, php-fpm, FrankenPHP)](docs/SERVERS.md)
+- [GitHub Actions CI requirements](docs/GITHUB_CI.md)
 
 ## Tests and coverage
 

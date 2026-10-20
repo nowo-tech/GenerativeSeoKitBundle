@@ -12,6 +12,9 @@
 
 	php_server {
 		hot_reload
-		# worker /app/public/index.php
+		worker {
+			file /app/public/index.php
+			watch
+		}
 	}
 }

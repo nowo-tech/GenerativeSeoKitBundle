@@ -9,6 +9,8 @@ Thank you for contributing to GenerativeSeoKitBundle.
 - [Quality checks](#quality-checks)
 - [Code of Conduct](#code-of-conduct)
 - [Pull requests](#pull-requests)
+- [Cursor Agent](#cursor-agent)
+- [AI co-author trailers](#ai-co-author-trailers)
 
 ## Setup
 
@@ -39,6 +41,8 @@ git push --force-with-lease origin main
 
 See [GITHUB_CI.md](GITHUB_CI.md) and `.cursor/rules/01-git-commits.mdc`.
 
+Maintainers run `make check-no-cursor-coauthor` **after** creating a release commit and **before** `git push` (REQ-GIT-001): an earlier `release-check` run does not cover the release commit itself.
+
 ## Quality checks
 
 ```bash
@@ -56,6 +60,21 @@ This project follows the [Contributor Covenant](../CODE_OF_CONDUCT.md). Report i
 ## Pull requests
 
 Use the GitHub PR template. Update `docs/CHANGELOG.md` for user-visible changes and `specs/001-baseline/code-inventory.md` when adding production files under `src/`.
+
+## Cursor Agent
+
+Contributors using Cursor Agent on this repository should enable these user-level settings (REQ-IDE-006):
+
+1. **Submit with Ctrl + Enter** (macOS: **⌘ + Enter**) — Cursor Settings → Agents / Chat. Enter inserts a newline; Ctrl/⌘+Enter submits.
+2. **Queue follow-ups** in user `settings.json` (Linux `~/.config/Cursor/User/settings.json`, Windows `%APPDATA%\Cursor\User\settings.json`, macOS `~/Library/Application Support/Cursor/User/settings.json`):
+
+```json
+{
+  "cursor.composer.queueMessageDefaultBehavior": "queue"
+}
+```
+
+Do not use `"steer"` as the default: it interrupts a running agent turn.
 
 ## AI co-author trailers
 

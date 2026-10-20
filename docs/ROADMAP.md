@@ -9,7 +9,7 @@ Shipped history lives in [CHANGELOG.md](CHANGELOG.md). Product behavior lives in
 - [Current state (v1.2.x)](#current-state-v12x)
 - [Short term](#short-term)
 - [Medium term](#medium-term)
-- [Long term / ideas](#long-term-ideas)
+- [Long term / ideas](#long-term--ideas)
 - [Non-goals](#non-goals)
 
 ---

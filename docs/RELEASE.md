@@ -34,6 +34,8 @@ make release-check
 
 ## Tag and GitHub release
 
+After creating the release commit and tag, run `make check-no-cursor-coauthor` again **before** `git push` (REQ-GIT-001). The release commit itself is not covered by an earlier `release-check` run.
+
 ```bash
 git tag -a v1.3.0 -m "Release v1.3.0"
 git push origin main

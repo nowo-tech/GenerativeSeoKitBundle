@@ -5,6 +5,7 @@ Configuration root: `nowo_generative_seo_kit`.
 ## Table of contents
 
 - [Top-level keys](#top-level-keys)
+- [geo](#geo)
 - [llms](#llms)
 - [crawlers](#crawlers)
 - [citations](#citations)
