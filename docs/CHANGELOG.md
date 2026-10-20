@@ -13,10 +13,11 @@ All notable changes to this project are documented in this file.
 - [[1.1.0] - 2026-10-06](#110---2026-10-06)
 - [[1.0.0] - 2026-10-06](#100---2026-10-06)
 
-## Unreleased
-
+## [Unreleased]
 ### Changed
 
+- Dependencies refreshed (Composer and pnpm/npm lock files of the bundle and its demos, campaign 2026-10-19).
+- `.php-cs-fixer.dist.php`: `new ParallelConfig(2)` (REQ-CS-001).
 - Documentation: wave-1 REQ compliance — README section order (Version information and Demos before Documentation), documentation list order (Roadmap last, PSR under Additional documentation), GitHub stars badge, canonical issue templates, CONTRIBUTING Cursor Agent queue settings, post-commit co-author check in RELEASE/CONTRIBUTING, TOCs, DEMO-FRANKENPHP dev/prod start and troubleshooting, demo production `Caddyfile` worker block enabled (`worker { file; watch }`), spec-driven development rewrite (user stories, scope, non-goals, REQ table, Engram), full GitHub Spec Kit manual, baseline spec (US-*, grouped FR-*, SC-*, validation) and categorized inventory (17/17).
 
 ## [1.5.0] - 2026-10-13
