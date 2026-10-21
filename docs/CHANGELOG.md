@@ -4,7 +4,8 @@ All notable changes to this project are documented in this file.
 
 ## Table of contents
 
-- [Unreleased](#unreleased)
+- [[Unreleased]](#unreleased)
+- [[1.5.1] - 2026-10-21](#151---2026-10-21)
 - [[1.5.0] - 2026-10-13](#150---2026-10-13)
 - [[1.4.1] - 2026-10-13](#141---2026-10-13)
 - [[1.4.0] - 2026-10-09](#140---2026-10-09)
@@ -14,6 +15,10 @@ All notable changes to this project are documented in this file.
 - [[1.0.0] - 2026-10-06](#100---2026-10-06)
 
 ## [Unreleased]
+
+## [1.5.1] - 2026-10-21
+
+Wave-2 REQ compliance: documented public API, full release-check chain with demo smoke, demo on PHP 8.5, security threat model. See [UPGRADING](UPGRADING.md#to-151).
 
 ### Changed
 
