@@ -16,6 +16,9 @@ final class Configuration implements ConfigurationInterface
 {
     public const ALIAS = 'nowo_generative_seo_kit';
 
+    /**
+     * Builds the generative SEO configuration tree.
+     */
     public function getConfigTreeBuilder(): TreeBuilder
     {
         $treeBuilder = new TreeBuilder(self::ALIAS);

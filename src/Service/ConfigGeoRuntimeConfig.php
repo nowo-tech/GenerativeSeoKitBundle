@@ -23,12 +23,18 @@ final readonly class ConfigGeoRuntimeConfig implements GeoRuntimeConfigInterface
     ) {
     }
 
+    /**
+     * Whether AI crawler robots groups are published.
+     */
     #[Override]
     public function isAiRobotsEnabled(): bool
     {
         return ($this->geo()['ai_robots_enabled'] ?? true) !== false;
     }
 
+    /**
+     * Additional AI user agents configured by the host.
+     */
     #[Override]
     public function extraAiUserAgents(): array
     {
@@ -47,6 +53,9 @@ final readonly class ConfigGeoRuntimeConfig implements GeoRuntimeConfigInterface
         return $out;
     }
 
+    /**
+     * Extra Markdown appended to llms.txt.
+     */
     #[Override]
     public function llmsExtraMarkdown(): string
     {

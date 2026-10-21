@@ -28,11 +28,17 @@ final class LlmsTxtRouteLoader extends Loader
         parent::__construct($env);
     }
 
+    /**
+     * Whether the resource is handled by this loader (its dedicated route type).
+     */
     public function supports(mixed $resource, ?string $type = null): bool
     {
         return $type === 'nowo_generative_seo_kit';
     }
 
+    /**
+     * Builds the llms.txt / llms-full.txt routes on the configured paths.
+     */
     public function load(mixed $resource, ?string $type = null): mixed
     {
         $routes  = new RouteCollection();

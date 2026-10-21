@@ -15,11 +15,17 @@ use function is_string;
  */
 final readonly class LlmsTxtController
 {
+    /**
+     * Uses the llms.txt generator.
+     */
     public function __construct(
         private LlmsTxtGenerator $llms,
     ) {
     }
 
+    /**
+     * Serves llms.txt (or llms-full.txt) as plain text with X-Robots-Tag: noindex.
+     */
     public function __invoke(?Request $request = null): Response
     {
         $raw     = $request?->attributes->get('_llms_variant', 'index') ?? 'index';

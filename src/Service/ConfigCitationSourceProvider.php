@@ -20,6 +20,9 @@ final readonly class ConfigCitationSourceProvider implements CitationSourceProvi
     ) {
     }
 
+    /**
+     * Citation sources declared in the bundle configuration.
+     */
     public function sources(): array
     {
         $rows = $this->config['citations'] ?? [];

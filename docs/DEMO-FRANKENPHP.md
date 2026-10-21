@@ -7,6 +7,8 @@
 - [Worker vs classic](#worker-vs-classic)
 - [Start the demo in development](#start-the-demo-in-development)
 - [Start the demo in production mode](#start-the-demo-in-production-mode)
+- [PHP version policy (Symfony 8 demo)](#php-version-policy-symfony-8-demo)
+- [Smoke check](#smoke-check)
 - [Troubleshooting](#troubleshooting)
 - [Playwright](#playwright)
 
@@ -53,6 +55,14 @@ docker compose exec php php bin/console cache:clear --env=prod
 ```
 
 In a real deployment, bake the application into the image (no bind mount), keep `FRANKENPHP_MODE=worker`, and warm the cache at build time. Worker-mode state rules are documented in the bundle worker audit (`docs/FRANKENPHP-WORKER-AUDIT.md`, when present).
+
+## PHP version policy (Symfony 8 demo)
+
+REQ-DEMO-010 / REQ-DEMO-012. `demo/symfony8` runs Symfony **8.1** (Flex pin `8.1.*`), which needs PHP **8.4.1+**: the demo requires `php >=8.4.1,<8.6` and the image is `dunglas/frankenphp:1-php8.5-alpine`, the newest PHP allowed by Symfony 8 and the bundle (`php >=8.2 <8.6`). The bundle itself keeps supporting PHP 8.2+ with Symfony 7.4. Bump the image tag and the demo `require.php` together when a newer PHP minor is supported.
+
+## Smoke check
+
+REQ-TEST-011. From the bundle root, `make demo-smoke` boots the demo, checks `http://localhost:8070/` (HTTP 200), `/llms.txt`, `/llms-full.txt` and `/robots.txt`, runs `nowo:generative-seo:audit` inside the container, then stops the stack. CI runs the same target in `.github/workflows/demo-smoke.yml` (weekly, on `v*` tags and on demand).
 
 ## Troubleshooting
 

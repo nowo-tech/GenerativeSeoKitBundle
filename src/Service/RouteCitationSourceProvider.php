@@ -24,6 +24,9 @@ final readonly class RouteCitationSourceProvider implements CitationSourceProvid
     ) {
     }
 
+    /**
+     * Citation sources built from the configured routes (empty without a URL generator).
+     */
     public function sources(): array
     {
         if (!$this->urlGenerator instanceof UrlGeneratorInterface) {

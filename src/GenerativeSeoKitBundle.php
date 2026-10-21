@@ -13,6 +13,9 @@ use Symfony\Component\HttpKernel\Bundle\Bundle;
  */
 final class GenerativeSeoKitBundle extends Bundle
 {
+    /**
+     * Returns the bundle extension.
+     */
     public function getContainerExtension(): ExtensionInterface
     {
         return new GenerativeSeoKitExtension();

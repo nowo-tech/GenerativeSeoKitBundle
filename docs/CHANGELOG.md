@@ -14,8 +14,14 @@ All notable changes to this project are documented in this file.
 - [[1.0.0] - 2026-10-06](#100---2026-10-06)
 
 ## [Unreleased]
+
 ### Changed
 
+- PHPDoc description on every public method of `src/` (REQ-CS-001).
+- Makefile: `release-check` runs `check-open-prs` and no longer swallows demo failures; new `demo-smoke` target and `.github/workflows/demo-smoke.yml` (REQ-MAKE-002, REQ-REL-003, REQ-TEST-011).
+- Demo: FrankenPHP image `1-php8.5-alpine`, `php >=8.4.1` (Symfony 8.1 floor); entrypoint waits for `vendor/` so worker mode boots on a clean checkout; PHP-version policy and smoke check documented (REQ-DEMO-010/012).
+- `docs/SECURITY.md`: threat model / attack surface and logging sections (REQ-SEC-001); INSTALLATION explains why routes come from a loader (REQ-SF-004).
+- `composer.json` branch-alias `1.5.x-dev`; Rector capped at 2 parallel workers (REQ-PKG-004, REQ-CS-003); `.scripts/check-no-cursor-coauthor.sh` accepts git worktrees (REQ-GIT-001).
 - Dependencies refreshed (Composer and pnpm/npm lock files of the bundle and its demos, campaign 2026-10-19).
 - `.php-cs-fixer.dist.php`: `new ParallelConfig(2)` (REQ-CS-001).
 - Documentation: wave-1 REQ compliance — README section order (Version information and Demos before Documentation), documentation list order (Roadmap last, PSR under Additional documentation), GitHub stars badge, canonical issue templates, CONTRIBUTING Cursor Agent queue settings, post-commit co-author check in RELEASE/CONTRIBUTING, TOCs, DEMO-FRANKENPHP dev/prod start and troubleshooting, demo production `Caddyfile` worker block enabled (`worker { file; watch }`), spec-driven development rewrite (user stories, scope, non-goals, REQ table, Engram), full GitHub Spec Kit manual, baseline spec (US-*, grouped FR-*, SC-*, validation) and categorized inventory (17/17).

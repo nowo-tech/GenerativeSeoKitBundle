@@ -29,6 +29,9 @@ final readonly class SeoKitRobotsGroupsProvider implements GeoRobotsGroupsProvid
     ) {
     }
 
+    /**
+     * AI crawler robots.txt groups handed to SeoKit (empty when disabled or when the robots bridge is off).
+     */
     public function groups(): array
     {
         if (($this->config['enabled'] ?? true) !== true) {

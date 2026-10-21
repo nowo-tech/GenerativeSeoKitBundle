@@ -15,6 +15,9 @@ use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
  */
 final class GenerativeSeoKitExtension extends Extension
 {
+    /**
+     * Returns the configuration alias.
+     */
     public function getAlias(): string
     {
         return Configuration::ALIAS;

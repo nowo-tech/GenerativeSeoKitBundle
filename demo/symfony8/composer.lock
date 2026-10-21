@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6eb3a5ad1150ede64b891e9efddd0c5f",
+    "content-hash": "1c947c95b19a8059418992c8c734730c",
     "packages": [
         {
             "name": "doctrine/collections",
@@ -259,7 +259,7 @@
             "dist": {
                 "type": "path",
                 "url": "/var/generative-seo-kit-bundle",
-                "reference": "d25c7aa668eded0187620fb7e1d8ad7469d7dca7"
+                "reference": "22355baadadb02fa9883fcb12b26abfde21daf83"
             },
             "require": {
                 "nowo-tech/seo-kit-bundle": "^1.11",
@@ -290,7 +290,7 @@
             "type": "symfony-bundle",
             "extra": {
                 "branch-alias": {
-                    "dev-main": "1.2.x-dev"
+                    "dev-main": "1.5.x-dev"
                 }
             },
             "autoload": {
@@ -4968,7 +4968,7 @@
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
-        "php": ">=8.2,<8.6"
+        "php": ">=8.4.1,<8.6"
     },
     "platform-dev": {},
     "plugin-api-version": "2.9.0"

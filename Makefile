@@ -8,7 +8,7 @@ COMPOSE_BIN := $(shell docker compose version >/dev/null 2>&1 && echo "docker co
 COMPOSE     := $(COMPOSE_BIN) -f $(COMPOSE_FILE)
 SERVICE_PHP := php
 
-.PHONY: help ensure-up up down down-dev build shell install test test-coverage coverage-php-percent cs-check cs-fix rector rector-dry phpstan igor qa release-check release-check-demos composer-sync clean update validate validate-translations assets setup-hooks check-no-cursor-coauthor strip-cursor-coauthor-from-history update-deps check-twig-extra
+.PHONY: help ensure-up up down down-dev build shell install test test-coverage coverage-php-percent cs-check cs-fix rector rector-dry phpstan igor qa release-check release-check-demos composer-sync clean update validate validate-translations assets setup-hooks check-no-cursor-coauthor strip-cursor-coauthor-from-history update-deps check-twig-extra check-open-prs demo-smoke
 
 help:
 	@echo "Generative SEO Kit Bundle - Development Commands"
@@ -33,7 +33,9 @@ help:
 	@echo "  phpstan       Run PHPStan static analysis"
 	@echo "  igor          Run Igor worker-state audit (REQ-CS-008)"
 	@echo "  qa            Run all QA checks (cs-check + test)"
-	@echo "  release-check Pre-release: co-author audit, cs-fix, cs-check, rector-dry, phpstan, igor, test-coverage, demo healthchecks"
+	@echo "  release-check Pre-release (REQ-MAKE-002): co-author audit, open PRs, Twig Extra, cs-fix, cs-check, rector-dry, phpstan, igor, test-coverage, demo healthchecks"
+	@echo "  check-open-prs Fail if unresolved open GitHub PRs remain (REQ-REL-003)"
+	@echo "  demo-smoke    Boot demo/symfony8 and assert HTTP 200 + llms.txt / robots.txt (REQ-TEST-011)"
 	@echo "  composer-sync Validate composer.json and align composer.lock (no install)"
 	@echo "  clean         Remove vendor and cache"
 	@echo "  update-deps   Update composer dependencies in bundle + demos (REQ-MAKE-008)"
@@ -112,14 +114,22 @@ check-twig-extra:
 igor: ensure-up
 	$(COMPOSE) exec -T php composer igor
 
-release-check: ensure-up check-no-cursor-coauthor check-twig-extra composer-sync cs-fix cs-check rector-dry phpstan igor test-coverage release-check-demos
+# REQ-MAKE-002 order.
+release-check: ensure-up check-no-cursor-coauthor check-open-prs check-twig-extra composer-sync cs-fix cs-check rector-dry phpstan igor test-coverage release-check-demos
+
+check-open-prs:
+	@bash .scripts/check-open-prs.sh
 
 check-no-cursor-coauthor:
 	@chmod +x .scripts/check-no-cursor-coauthor.sh
 	@./.scripts/check-no-cursor-coauthor.sh HEAD
 
+# REQ-TEST-011 — boot demo/symfony8, assert HTTP 200 + llms.txt / robots.txt, then stop it.
+demo-smoke:
+	@rc=0; $(MAKE) -C demo release-check || rc=$$?; $(MAKE) -C demo down-symfony8 >/dev/null 2>&1 || true; exit $$rc
+
 release-check-demos:
-	@if [ -f demo/Makefile ]; then $(MAKE) -C demo release-check 2>/dev/null || true; else true; fi
+	@if [ -f demo/Makefile ]; then $(MAKE) -C demo release-check; fi
 
 composer-sync: ensure-up
 	$(COMPOSE) exec -T $(SERVICE_PHP) composer validate --strict

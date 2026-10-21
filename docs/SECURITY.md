@@ -3,6 +3,8 @@
 ## Table of contents
 
 - [Reporting vulnerabilities](#reporting-vulnerabilities)
+- [Threat model and attack surface](#threat-model-and-attack-surface)
+- [Logging](#logging)
 - [Integrator guidance](#integrator-guidance)
 - [Dependencies](#dependencies)
 - [Release security checklist (12.4.1)](#release-security-checklist-1241)
@@ -13,6 +15,21 @@
 Report security issues privately to **hectorfranco@nowo.tech**. Do not open public issues for sensitive reports.
 
 See [.github/SECURITY.md](../.github/SECURITY.md) for supported versions.
+
+## Threat model and attack surface
+
+| Surface | Exposure | Mitigation |
+|---------|----------|------------|
+| `GET /llms.txt`, `GET /llms-full.txt` (`LlmsTxtController`) | Public, unauthenticated, cacheable | Content comes only from bundle configuration and route generation (no request input is echoed); served as `text/plain` with `X-Robots-Tag: noindex`; 404 when disabled |
+| AI crawler groups in SeoKit `robots.txt` | Public | Advisory only (crawlers may ignore it); never an access-control layer |
+| Citation routes (`citation_routes`) | URLs are generated server-side and published | Only list public pages; private / authenticated / draft URLs would be disclosed |
+| `nowo:generative-seo:audit` | CLI, operators only | Read-only checks; no network calls |
+
+Out of scope: authentication, rate limiting and caching of the llms.txt endpoints (host / reverse-proxy responsibility). The bundle makes no outbound HTTP calls and stores nothing.
+
+## Logging
+
+The bundle does not log: it has no error paths that handle secrets or personal data, and the llms.txt / robots output is deterministic from configuration. Failures (invalid configuration, route generation errors) surface as Symfony exceptions handled by the host's error logging. Do not put secrets or personal data in llms.txt titles, summaries, extra Markdown or citation notes — they are published verbatim.
 
 ## Integrator guidance
 

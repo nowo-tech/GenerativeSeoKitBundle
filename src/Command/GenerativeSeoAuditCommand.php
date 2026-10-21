@@ -22,12 +22,18 @@ use function sprintf;
 )]
 final class GenerativeSeoAuditCommand extends Command
 {
+    /**
+     * Uses the auditor that checks llms.txt, citation sources and AI crawler robots groups.
+     */
     public function __construct(
         private readonly GenerativeSeoAuditor $auditor,
     ) {
         parent::__construct();
     }
 
+    /**
+     * Lists the audit problems; fails when any are found unless --lenient is passed.
+     */
     public function __invoke(
         SymfonyStyle $io,
         #[Option(description: 'Report findings without failing the command')]

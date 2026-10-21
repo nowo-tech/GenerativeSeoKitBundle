@@ -13,7 +13,13 @@ namespace Nowo\GenerativeSeoKitBundle\Service;
  */
 interface LlmsHeaderRuntimeInterface
 {
+    /**
+     * Runtime override of the llms.txt title (null: configured value).
+     */
     public function llmsTitle(): ?string;
 
+    /**
+     * Runtime override of the llms.txt summary (null: configured value).
+     */
     public function llmsSummary(): ?string;
 }

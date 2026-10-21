@@ -48,6 +48,8 @@ nowo_generative_seo_kit:
 
 SeoKit routes (`type: nowo_seo_kit`) remain required for `/robots.txt` and `/sitemap.xml`.
 
+The `nowo_generative_seo_kit` route type is a loader (`Routing\LlmsTxtRouteLoader`) rather than `#[Route]` attributes on `LlmsTxtController`: the public paths come from configuration (`llms.path`, `llms.well_known_path`, the llms-full paths) and a path set to an empty string drops its route, which static attributes cannot express. Route names stay stable across releases.
+
 ## Flex recipe
 
 See `.symfony/recipe/nowo-tech/generative-seo-kit-bundle/1.0.0/` in this repository. Until the recipe is published on [symfony/recipes-contrib](https://github.com/symfony/recipes-contrib), copy those files into the host app.

@@ -27,6 +27,9 @@ final readonly class LlmsTxtGenerator
     ) {
     }
 
+    /**
+     * Whether llms.txt is enabled.
+     */
     public function isEnabled(): bool
     {
         if (($this->config['enabled'] ?? true) !== true) {
@@ -38,6 +41,9 @@ final readonly class LlmsTxtGenerator
         return ($llms['enabled'] ?? true) === true;
     }
 
+    /**
+     * Whether llms-full.txt is enabled.
+     */
     public function isFullEnabled(): bool
     {
         if (!$this->isEnabled()) {
@@ -49,11 +55,17 @@ final readonly class LlmsTxtGenerator
         return ($llms['full_enabled'] ?? false) === true;
     }
 
+    /**
+     * Renders llms.txt.
+     */
     public function generate(): string
     {
         return $this->render(false);
     }
 
+    /**
+     * Renders llms-full.txt (with the citation notes).
+     */
     public function generateFull(): string
     {
         return $this->render(true);
