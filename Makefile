@@ -133,7 +133,7 @@ release-check-demos:
 
 composer-sync: ensure-up
 	$(COMPOSE) exec -T $(SERVICE_PHP) composer validate --strict
-	$(COMPOSE) exec -T $(SERVICE_PHP) composer update --lock --no-install
+	$(COMPOSE) exec -T $(SERVICE_PHP) composer install --no-interaction --prefer-dist
 
 clean:
 	rm -rf vendor
