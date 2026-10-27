@@ -5,6 +5,7 @@ All notable changes to this project are documented in this file.
 ## Table of contents
 
 - [[Unreleased]](#unreleased)
+- [[1.6.0] - 2026-10-27](#160---2026-10-27)
 - [[1.5.1] - 2026-10-21](#151---2026-10-21)
 - [[1.5.0] - 2026-10-13](#150---2026-10-13)
 - [[1.4.1] - 2026-10-13](#141---2026-10-13)
@@ -15,6 +16,10 @@ All notable changes to this project are documented in this file.
 - [[1.0.0] - 2026-10-06](#100---2026-10-06)
 
 ## [Unreleased]
+
+## [1.6.0] - 2026-10-27
+
+Attribute-declared llms.txt routes (REQ-SF-004), native PHPUnit deprecation gate (REQ-SF-005), 100% coverage gate See [UPGRADING](UPGRADING.md#to-160).
 
 ### Changed
 
