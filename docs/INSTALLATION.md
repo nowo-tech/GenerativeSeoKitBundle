@@ -48,7 +48,7 @@ nowo_generative_seo_kit:
 
 SeoKit routes (`type: nowo_seo_kit`) remain required for `/robots.txt` and `/sitemap.xml`.
 
-The `nowo_generative_seo_kit` route type is a loader (`Routing\LlmsTxtRouteLoader`) rather than `#[Route]` attributes on `LlmsTxtController`: the public paths come from configuration (`llms.path`, `llms.well_known_path`, the llms-full paths) and a path set to an empty string drops its route, which static attributes cannot express. Route names stay stable across releases.
+The routes are declared with `#[Route]` attributes on `LlmsTxtController` (an `#[AsController]` invokable service): `nowo_generative_seo_kit_llms` (`/llms.txt`), `nowo_generative_seo_kit_llms_well_known` (`/.well-known/llms.txt`), `nowo_generative_seo_kit_llms_full` (`/llms-full.txt`) and `nowo_generative_seo_kit_llms_full_well_known` (`/.well-known/llms-full.txt`). The `nowo_generative_seo_kit` route type (`Routing\LlmsTxtRouteLoader`) is the thin import for those attributes: it applies the configured paths (`llms.path`, `llms.well_known_path`, `llms.full_path`, `llms.full_well_known_path`) and leaves out the routes that are disabled (`enabled` / `llms.enabled` false, an empty well-known path, `llms.full_enabled` false) or whose path collides with another one. Import the bundle through this route type, not through `type: attribute` on the bundle's `src/Controller/` (that would register every route on its default path, ignoring the configuration). Route names stay stable across releases; check them with `php bin/console debug:router | grep nowo_generative_seo_kit`.
 
 ## Flex recipe
 

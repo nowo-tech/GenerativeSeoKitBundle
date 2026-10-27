@@ -7,8 +7,11 @@ namespace Nowo\GenerativeSeoKitBundle\Tests\Unit\Controller;
 use Nowo\GenerativeSeoKitBundle\Controller\LlmsTxtController;
 use Nowo\GenerativeSeoKitBundle\Service\LlmsTxtGenerator;
 use PHPUnit\Framework\TestCase;
+use ReflectionClass;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Attribute\AsController;
+use Symfony\Component\Routing\Attribute\Route;
 
 final class LlmsTxtControllerTest extends TestCase
 {
@@ -71,5 +74,25 @@ final class LlmsTxtControllerTest extends TestCase
             'llms'    => ['enabled' => true, 'title' => 'Index'],
         ]));
         self::assertStringContainsString('# Index', (string) $controller($request)->getContent());
+    }
+
+    public function testDeclaresControllerAndRoutesWithAttributes(): void
+    {
+        $class = new ReflectionClass(LlmsTxtController::class);
+        self::assertCount(1, $class->getAttributes(AsController::class));
+
+        $names = [];
+        foreach ($class->getAttributes(Route::class) as $attribute) {
+            $route = $attribute->newInstance();
+            self::assertSame(['GET'], $route->methods);
+            $names[] = $route->name;
+        }
+
+        self::assertSame([
+            LlmsTxtController::ROUTE_INDEX,
+            LlmsTxtController::ROUTE_INDEX_WELL_KNOWN,
+            LlmsTxtController::ROUTE_FULL,
+            LlmsTxtController::ROUTE_FULL_WELL_KNOWN,
+        ], $names);
     }
 }

@@ -4,8 +4,11 @@ declare(strict_types=1);
 
 namespace Nowo\GenerativeSeoKitBundle\Tests\Unit\Routing;
 
+use Nowo\GenerativeSeoKitBundle\Controller\LlmsTxtController;
 use Nowo\GenerativeSeoKitBundle\Routing\LlmsTxtRouteLoader;
 use PHPUnit\Framework\TestCase;
+use ReflectionClass;
+use Symfony\Component\Routing\Attribute\Route as RouteAttribute;
 use Symfony\Component\Routing\RouteCollection;
 
 final class LlmsTxtRouteLoaderTest extends TestCase
@@ -124,5 +127,38 @@ final class LlmsTxtRouteLoaderTest extends TestCase
             ],
         ]);
         self::assertCount(1, $loader->load('.'));
+    }
+
+    public function testRoutesComeFromControllerAttributes(): void
+    {
+        $declared = [];
+        foreach ((new ReflectionClass(LlmsTxtController::class))->getAttributes(RouteAttribute::class) as $attribute) {
+            $route                           = $attribute->newInstance();
+            $declared[(string) $route->name] = $route;
+        }
+
+        $loader = new LlmsTxtRouteLoader([
+            'enabled' => true,
+            'llms'    => [
+                'enabled'              => true,
+                'path'                 => '/ai/llms.txt',
+                'well_known_path'      => '/.well-known/llms.txt',
+                'full_enabled'         => true,
+                'full_path'            => '/llms-full.txt',
+                'full_well_known_path' => '/.well-known/llms-full.txt',
+            ],
+        ]);
+        $routes = $loader->load('.');
+
+        self::assertSame(array_keys($declared), array_keys($routes->all()));
+        foreach ($routes->all() as $name => $route) {
+            self::assertSame(LlmsTxtController::class, $route->getDefault('_controller'));
+            self::assertSame($declared[$name]->methods, $route->getMethods());
+            self::assertSame($declared[$name]->defaults['_llms_variant'], $route->getDefault('_llms_variant'));
+        }
+
+        // Configuration moves a route away from its attribute default path.
+        self::assertSame('/llms.txt', $declared[LlmsTxtController::ROUTE_INDEX]->path);
+        self::assertSame('/ai/llms.txt', $routes->get(LlmsTxtController::ROUTE_INDEX)?->getPath());
     }
 }
