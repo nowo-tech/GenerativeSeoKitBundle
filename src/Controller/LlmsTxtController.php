@@ -4,17 +4,33 @@ declare(strict_types=1);
 
 namespace Nowo\GenerativeSeoKitBundle\Controller;
 
+use Nowo\GenerativeSeoKitBundle\Routing\LlmsTxtRouteLoader;
 use Nowo\GenerativeSeoKitBundle\Service\LlmsTxtGenerator;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Attribute\AsController;
+use Symfony\Component\Routing\Attribute\Route;
 
 use function is_string;
 
 /**
  * Serves llms.txt / optional llms-full.txt as text/plain.
+ *
+ * The routes are declared with attributes; {@see LlmsTxtRouteLoader}
+ * (route type `nowo_generative_seo_kit`) reads them, applies the configured paths and drops the disabled ones.
  */
+#[AsController]
+#[Route(path: '/llms.txt', name: self::ROUTE_INDEX, defaults: ['_llms_variant' => 'index'], methods: ['GET'])]
+#[Route(path: '/.well-known/llms.txt', name: self::ROUTE_INDEX_WELL_KNOWN, defaults: ['_llms_variant' => 'index'], methods: ['GET'])]
+#[Route(path: '/llms-full.txt', name: self::ROUTE_FULL, defaults: ['_llms_variant' => 'full'], methods: ['GET'])]
+#[Route(path: '/.well-known/llms-full.txt', name: self::ROUTE_FULL_WELL_KNOWN, defaults: ['_llms_variant' => 'full'], methods: ['GET'])]
 final readonly class LlmsTxtController
 {
+    public const ROUTE_INDEX            = 'nowo_generative_seo_kit_llms';
+    public const ROUTE_INDEX_WELL_KNOWN = 'nowo_generative_seo_kit_llms_well_known';
+    public const ROUTE_FULL             = 'nowo_generative_seo_kit_llms_full';
+    public const ROUTE_FULL_WELL_KNOWN  = 'nowo_generative_seo_kit_llms_full_well_known';
+
     /**
      * Uses the llms.txt generator.
      */
