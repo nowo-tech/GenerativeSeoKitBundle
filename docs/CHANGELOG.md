@@ -16,6 +16,12 @@ All notable changes to this project are documented in this file.
 
 ## [Unreleased]
 
+### Changed
+
+- `LlmsTxtController` declares its four routes with `#[Route]` attributes and `#[AsController]`; the `nowo_generative_seo_kit` route loader now builds the routes from those attributes and only applies the configured paths / drops disabled routes. Route names, paths, methods and the route import are unchanged (REQ-SF-004).
+- PHPUnit fails on any deprecation, including Symfony's silenced `trigger_deprecation()` calls (`failOnDeprecation`, `ignoreSuppressionOfDeprecations`, `restrictDeprecations="false"`); `SYMFONY_DEPRECATIONS_HELPER=max[direct]=0` set in `phpunit.xml.dist` and the CI test jobs; `phpunit/phpunit` floor raised to `^10.5` (REQ-SF-005).
+- Coverage gates at 100% PHP lines: CI `Code Coverage` job (was 75%) and `make test-coverage` (`.scripts/php-coverage-percent.sh`, override with `PHP_COVERAGE_MIN`) now exit non-zero below it (REQ-TEST-003).
+
 ## [1.5.1] - 2026-10-21
 
 Wave-2 REQ compliance: documented public API, full release-check chain with demo smoke, demo on PHP 8.5, security threat model. See [UPGRADING](UPGRADING.md#to-151).

@@ -8,6 +8,8 @@
          beStrictAboutOutputDuringTests="true"
          failOnRisky="true"
          failOnWarning="false"
+         failOnDeprecation="true"
+         displayDetailsOnTestsThatTriggerDeprecations="true"
          displayDetailsOnTestsThatTriggerWarnings="true">
     <testsuites>
         <testsuite name="default">
@@ -15,11 +17,18 @@
         </testsuite>
     </testsuites>
 
-    <source restrictDeprecations="true" restrictNotices="true" restrictWarnings="true">
+    <source restrictDeprecations="false" ignoreSuppressionOfDeprecations="true" restrictNotices="true" restrictWarnings="true">
         <include>
             <directory>src</directory>
         </include>
     </source>
+
+    <php>
+        <!-- REQ-SF-005: the deprecation gate is PHPUnit's own (failOnDeprecation + ignoreSuppressionOfDeprecations,
+             restrictDeprecations="false"): any deprecation, including Symfony's silenced trigger_deprecation() calls,
+             fails the run. The Symfony bridge setting is kept for runs that load symfony/phpunit-bridge. -->
+        <env name="SYMFONY_DEPRECATIONS_HELPER" value="max[direct]=0"/>
+    </php>
 
     <coverage>
         <report>
