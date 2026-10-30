@@ -79,7 +79,7 @@ final class LlmsTxtControllerTest extends TestCase
     public function testDeclaresControllerAndRoutesWithAttributes(): void
     {
         $class = new ReflectionClass(LlmsTxtController::class);
-        self::assertCount(1, $class->getAttributes(AsController::class));
+        self::assertSame([], $class->getAttributes(AsController::class));
 
         $names = [];
         foreach ($class->getAttributes(Route::class) as $attribute) {

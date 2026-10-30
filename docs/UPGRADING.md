@@ -16,6 +16,8 @@
 
 ## Unreleased
 
+From **1.6.0**: no action needed if you import the `nowo_generative_seo_kit` route type (see [INSTALLATION](INSTALLATION.md)). If you relied on `/llms.txt` appearing through the default `routing.controllers` import without that route type, add the import explicitly.
+
 ## To 1.6.0
 
 From **1.5.1**:
