@@ -17,9 +17,9 @@ All notable changes to this project are documented in this file.
 
 ## [Unreleased]
 
-### Fixed
+### Security
 
-- **llms.txt routes registered without the route import:** on Symfony >= 7.3 the `#[Route]` attributes (plus `#[AsController]`) on `LlmsTxtController` made the autoconfigured service carry the `routing.controller` tag, so the host's default `controllers: { resource: routing.controllers }` exposed `/llms.txt`, `/.well-known/llms.txt`, `/llms-full.txt` and `/.well-known/llms-full.txt` on their default paths even when the host never imported the `nowo_generative_seo_kit` route type (ignoring the configured paths, disabled well-known/full routes and collision checks). The controller service is no longer autoconfigured and no longer carries `#[AsController]`; the routes exist only through the documented route import (REQ-SF-004 rule 7). Regression test with a kernel that only loads `routing.controllers`.
+- **llms.txt routes registered without the route import:** on Symfony >= 7.3 the `#[Route]` attributes (plus `#[AsController]`) on `LlmsTxtController` made the autoconfigured service carry the `routing.controller` tag, so the host's default `controllers: { resource: routing.controllers }` exposed `/llms.txt`, `/.well-known/llms.txt`, `/llms-full.txt` and `/.well-known/llms-full.txt` on their default paths even when the host never imported the `nowo_generative_seo_kit` route type (ignoring the configured paths, disabled well-known/full routes and collision checks). The controller service is no longer autoconfigured and no longer carries `#[AsController]`; the routes exist only through the documented route import (REQ-SF-004 rule 7). Unauthenticated endpoints, public by design (no sensitive data), but now only exposed when the host opts in. Regression test with a kernel that only loads `routing.controllers`.
 
 ## [1.6.0] - 2026-10-27
 
