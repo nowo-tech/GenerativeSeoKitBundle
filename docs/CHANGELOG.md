@@ -5,6 +5,7 @@ All notable changes to this project are documented in this file.
 ## Table of contents
 
 - [[Unreleased]](#unreleased)
+- [[1.6.1] - 2026-10-30](#161---2026-10-30)
 - [[1.6.0] - 2026-10-27](#160---2026-10-27)
 - [[1.5.1] - 2026-10-21](#151---2026-10-21)
 - [[1.5.0] - 2026-10-13](#150---2026-10-13)
@@ -16,6 +17,10 @@ All notable changes to this project are documented in this file.
 - [[1.0.0] - 2026-10-06](#100---2026-10-06)
 
 ## [Unreleased]
+
+## [1.6.1] - 2026-10-30
+
+Bundle routes are opt-in again: controllers are no longer autoconfigured, so a host's routing.controllers import does not expose them (REQ-SF-004 rule 7). See [UPGRADING](UPGRADING.md#to-161).
 
 ### Security
 

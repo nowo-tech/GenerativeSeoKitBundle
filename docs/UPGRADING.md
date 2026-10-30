@@ -3,6 +3,7 @@
 ## Table of contents
 
 - [Unreleased](#unreleased)
+- [To 1.6.1](#to-161)
 - [To 1.6.0](#to-160)
 - [To 1.5.1](#to-151)
 - [To 1.5.0](#to-150)
@@ -15,6 +16,14 @@
 - [To 1.0.0](#to-100)
 
 ## Unreleased
+
+## To 1.6.1
+
+From **1.6.0**:
+
+```bash
+composer update nowo-tech/generative-seo-kit-bundle
+```
 
 From **1.6.0**: no action needed if you import the `nowo_generative_seo_kit` route type (see [INSTALLATION](INSTALLATION.md)). If you relied on `/llms.txt` appearing through the default `routing.controllers` import without that route type, add the import explicitly.
 
