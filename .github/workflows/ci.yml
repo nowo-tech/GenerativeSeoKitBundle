@@ -52,20 +52,23 @@ jobs:
         run: composer config platform.php "${{ matrix.php }}.99"
 
       - name: Install dependencies
+        # REQ-SF-002: pin the cell's Symfony minor (no caret drift). symfony/event-dispatcher is pinned too: with a
+        # caret it resolved to 8.x under framework-bundle 7.4, whose kernel then triggers 8.1 deprecations.
         run: |
           composer require \
-            symfony/config:^${{ matrix.symfony }} \
-            symfony/console:^${{ matrix.symfony }} \
-            symfony/dependency-injection:^${{ matrix.symfony }} \
-            symfony/http-foundation:^${{ matrix.symfony }} \
-            symfony/http-kernel:^${{ matrix.symfony }} \
-            symfony/routing:^${{ matrix.symfony }} \
-            symfony/yaml:^${{ matrix.symfony }} \
+            symfony/config:${{ matrix.symfony }}.* \
+            symfony/console:${{ matrix.symfony }}.* \
+            symfony/dependency-injection:${{ matrix.symfony }}.* \
+            symfony/http-foundation:${{ matrix.symfony }}.* \
+            symfony/http-kernel:${{ matrix.symfony }}.* \
+            symfony/routing:${{ matrix.symfony }}.* \
+            symfony/yaml:${{ matrix.symfony }}.* \
             --no-interaction --no-update
           composer require --dev \
-            symfony/framework-bundle:^${{ matrix.symfony }} \
+            symfony/event-dispatcher:${{ matrix.symfony }}.* \
+            symfony/framework-bundle:${{ matrix.symfony }}.* \
             --no-interaction --no-update
-          composer update --no-interaction --prefer-dist
+          composer update --with-all-dependencies --no-interaction --prefer-dist
       - name: Composer audit (Critical/High)
         run: composer audit --locked
 

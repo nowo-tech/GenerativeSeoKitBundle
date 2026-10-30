@@ -8,7 +8,6 @@ use Nowo\GenerativeSeoKitBundle\Routing\LlmsTxtRouteLoader;
 use Nowo\GenerativeSeoKitBundle\Service\LlmsTxtGenerator;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Attribute\AsController;
 use Symfony\Component\Routing\Attribute\Route;
 
 use function is_string;
@@ -18,8 +17,9 @@ use function is_string;
  *
  * The routes are declared with attributes; {@see LlmsTxtRouteLoader}
  * (route type `nowo_generative_seo_kit`) reads them, applies the configured paths and drops the disabled ones.
+ * The service is not autoconfigured (no #[AsController]): the routes exist only where the host imports that
+ * route type, never through the host's `routing.controllers` resource (REQ-SF-004 rule 7).
  */
-#[AsController]
 #[Route(path: '/llms.txt', name: self::ROUTE_INDEX, defaults: ['_llms_variant' => 'index'], methods: ['GET'])]
 #[Route(path: '/.well-known/llms.txt', name: self::ROUTE_INDEX_WELL_KNOWN, defaults: ['_llms_variant' => 'index'], methods: ['GET'])]
 #[Route(path: '/llms-full.txt', name: self::ROUTE_FULL, defaults: ['_llms_variant' => 'full'], methods: ['GET'])]

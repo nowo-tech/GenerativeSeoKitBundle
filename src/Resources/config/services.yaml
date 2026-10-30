@@ -35,7 +35,11 @@ services:
 
     Nowo\GenerativeSeoKitBundle\Service\GenerativeSeoAuditor: ~
 
+    # autoconfigure: false (REQ-SF-004 rule 7) — on Symfony >= 7.3 a #[Route] class is autoconfigured with the
+    # routing.controller tag, and the host's `routing.controllers` resource would then expose /llms.txt & co.
+    # on their default paths without the `nowo_generative_seo_kit` route import (opt-in only).
     Nowo\GenerativeSeoKitBundle\Controller\LlmsTxtController:
+        autoconfigure: false
         tags: ['controller.service_arguments']
         public: true
 
