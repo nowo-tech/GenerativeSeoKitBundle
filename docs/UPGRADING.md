@@ -3,6 +3,7 @@
 ## Table of contents
 
 - [Unreleased](#unreleased)
+- [To 1.7.0](#to-170)
 - [To 1.6.1](#to-161)
 - [To 1.6.0](#to-160)
 - [To 1.5.1](#to-151)
@@ -16,6 +17,14 @@
 - [To 1.0.0](#to-100)
 
 ## Unreleased
+
+## To 1.7.0
+
+From **1.6.1**:
+
+```bash
+composer update nowo-tech/generative-seo-kit-bundle
+```
 
 To the next minor (1.7.0): no action needed; output and services are unchanged when SeoKit is installed.
 
