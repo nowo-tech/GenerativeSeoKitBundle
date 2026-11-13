@@ -37,7 +37,7 @@ The index then includes a `## Related` link. The full file repeats the index sec
 
 ## Robots bridge
 
-Keep SeoKit `robots.txt` as the only robots document. This bundle implements `GeoRobotsGroupsProviderInterface`. Tune agents under `nowo_generative_seo_kit.crawlers`; do not duplicate `nowo_seo_kit.robots.groups` unless you need extra host-specific agents.
+Keep SeoKit `robots.txt` as the only robots document. This bundle implements `GeoRobotsGroupsProviderInterface` through `SeoKitRobotsGroupsProvider`, which forwards the bundle-owned `AiRobotsGroupsProviderInterface` port (default `CrawlerRobotsGroupsProvider`; alias the interface to replace the crawler policy). The bridge is registered only when SeoKit is installed; see [Architecture](ARCHITECTURE.md#seokit-bridge-optional-at-runtime-required-by-composer-until-20). Tune agents under `nowo_generative_seo_kit.crawlers`; do not duplicate `nowo_seo_kit.robots.groups` unless you need extra host-specific agents.
 
 ## Citation providers
 
@@ -81,7 +81,7 @@ services:
     Nowo\GenerativeSeoKitBundle\Service\GeoRuntimeConfigInterface: '@App\Seo\SiteGeoRuntimeConfig'
 ```
 
-The kit's `SeoKitRobotsGroupsProvider` then skips all AI groups when disabled, appends extra agents (not already in the crawler catalog), and `LlmsTxtGenerator` renders the extra Markdown after the contact line. Without an override, the YAML `geo` node is used.
+The kit's robots groups port (`CrawlerRobotsGroupsProvider`, forwarded to SeoKit by `SeoKitRobotsGroupsProvider`) then skips all AI groups when disabled, appends extra agents (not already in the crawler catalog), and `LlmsTxtGenerator` renders the extra Markdown after the contact line. Without an override, the YAML `geo` node is used.
 
 To also drive the llms.txt title and summary from your storage, let the same service implement the optional `LlmsHeaderRuntimeInterface` (`llmsTitle(): ?string`, `llmsSummary(): ?string`). A `null` or blank value keeps the configured `llms.title` / `llms.summary`:
 

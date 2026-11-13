@@ -18,6 +18,18 @@ All notable changes to this project are documented in this file.
 
 ## [Unreleased]
 
+### Added
+
+- `AiRobotsGroupsProviderInterface`: bundle-owned, framework-free port for the AI crawler robots.txt groups, with the default `CrawlerRobotsGroupsProvider` (same rules as before). Hosts can alias the interface to replace the crawler policy (REQ-ARCH-001 rules 1 and 5).
+- `SeoKitRobotsGroupsProvider` (the SeoKit bridge) implements the port too and forwards it (new optional third constructor argument `?AiRobotsGroupsProviderInterface $groups`); its output is unchanged (equivalence tests against the 1.6.1 fixtures).
+- The bridge is registered only when SeoKit is installed; llms.txt, citations and the audit no longer need SeoKit at runtime. A test guards that no other class references SeoKit.
+- `docs/ARCHITECTURE.md`: ports, SPI, the SeoKit bridge and a "Standard Symfony and DDD hosts" section.
+
+### Changed
+
+- `GenerativeSeoAuditor` takes `AiRobotsGroupsProviderInterface` instead of `SeoKitRobotsGroupsProvider` (which implements it, so existing callers keep working).
+- `nowo-tech/seo-kit-bundle` stays in `require` for 1.x; 2.0 moves it to `suggest` (REQ-ARCH-001 rule 8 deferred to 2.0, see [ARCHITECTURE](ARCHITECTURE.md#seokit-bridge-optional-at-runtime-required-by-composer-until-20)).
+
 ### Tests
 
 - Tests: kept-alive worker test `WorkerKeptAliveKernelTest` (one kernel or container, never reset, 1,200 alternating iterations, memory bound) and `docs/FRANKENPHP-WORKER-AUDIT.md` refreshed for v1.6.1; no runtime change.

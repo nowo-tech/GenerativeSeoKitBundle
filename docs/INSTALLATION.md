@@ -21,7 +21,7 @@
 composer require nowo-tech/generative-seo-kit-bundle
 ```
 
-This package **requires** SeoKit. Do not extract crawler groups out of SeoKit; this bundle implements the existing provider tag.
+This package **requires** SeoKit in 1.x (only the robots bridge uses it at runtime; 2.0 moves it to `suggest`, see [ARCHITECTURE](ARCHITECTURE.md#seokit-bridge-optional-at-runtime-required-by-composer-until-20)). If you use SeoKit, also require it directly (`composer require nowo-tech/seo-kit-bundle`). Do not extract crawler groups out of SeoKit; this bundle implements the existing provider tag.
 
 ## Register the bundle
 
