@@ -17,6 +17,12 @@
 
 ## Unreleased
 
+To the next minor (1.7.0): no action needed; output and services are unchanged when SeoKit is installed.
+
+- New port `Nowo\GenerativeSeoKitBundle\Service\AiRobotsGroupsProviderInterface` (default `CrawlerRobotsGroupsProvider`). Alias it to your own service to replace the AI crawler policy; the audit and the SeoKit bridge follow.
+- `GenerativeSeoAuditor::__construct()` now takes the port; passing a `SeoKitRobotsGroupsProvider` still works.
+- **Prepare for 2.0:** 2.0 moves `nowo-tech/seo-kit-bundle` from `require` to `suggest`. If your app uses SeoKit (`SeoKitBundle` in `config/bundles.php`, `type: nowo_seo_kit` routes), require it directly now: `composer require nowo-tech/seo-kit-bundle`.
+
 ## To 1.6.1
 
 From **1.6.0**:

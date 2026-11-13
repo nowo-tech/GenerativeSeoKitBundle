@@ -10,11 +10,12 @@ namespace Nowo\GenerativeSeoKitBundle\Service;
 final readonly class GenerativeSeoAuditor
 {
     /**
-     * Uses the llms.txt generator and the robots groups provider.
+     * Uses the llms.txt generator and the robots groups port (a {@see SeoKitRobotsGroupsProvider} still fits: it
+     * implements the port).
      */
     public function __construct(
         private LlmsTxtGenerator $llms,
-        private SeoKitRobotsGroupsProvider $robots,
+        private AiRobotsGroupsProviderInterface $robots,
     ) {
     }
 

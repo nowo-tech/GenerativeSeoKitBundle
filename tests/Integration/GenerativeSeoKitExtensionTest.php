@@ -5,7 +5,10 @@ declare(strict_types=1);
 namespace Nowo\GenerativeSeoKitBundle\Tests\Integration;
 
 use Nowo\GenerativeSeoKitBundle\DependencyInjection\GenerativeSeoKitExtension;
+use Nowo\GenerativeSeoKitBundle\Service\AiRobotsGroupsProviderInterface;
 use Nowo\GenerativeSeoKitBundle\Service\ConfigGeoRuntimeConfig;
+use Nowo\GenerativeSeoKitBundle\Service\CrawlerRobotsGroupsProvider;
+use Nowo\GenerativeSeoKitBundle\Service\GenerativeSeoAuditor;
 use Nowo\GenerativeSeoKitBundle\Service\GeoRuntimeConfigInterface;
 use Nowo\GenerativeSeoKitBundle\Service\LlmsTxtGenerator;
 use Nowo\GenerativeSeoKitBundle\Service\RouteCitationSourceProvider;
@@ -82,6 +85,60 @@ final class GenerativeSeoKitExtensionTest extends TestCase
         self::assertInstanceOf(LlmsTxtGenerator::class, $llms);
         self::assertStringContainsString('Host notes', $llms->generate());
     }
+
+    public function testWithoutSeoKitTheBridgeIsNotRegisteredAndTheAuditStillWorks(): void
+    {
+        $container = new ContainerBuilder();
+        (new GenerativeSeoKitExtension(seoKitAvailable: false))->load([[
+            'citations' => [['title' => 'Home', 'url' => 'https://example.com/']],
+        ]], $container);
+
+        self::assertFalse($container->hasDefinition(SeoKitRobotsGroupsProvider::class));
+        $container->getDefinition(GenerativeSeoAuditor::class)->setPublic(true);
+        $container->getAlias(AiRobotsGroupsProviderInterface::class)->setPublic(true);
+        $container->compile();
+
+        self::assertInstanceOf(CrawlerRobotsGroupsProvider::class, $container->get(AiRobotsGroupsProviderInterface::class));
+        $auditor = $container->get(GenerativeSeoAuditor::class);
+        self::assertInstanceOf(GenerativeSeoAuditor::class, $auditor);
+        self::assertSame([], $auditor->problems());
+    }
+
+    public function testWithSeoKitTheBridgeForwardsTheDefaultPort(): void
+    {
+        $container = new ContainerBuilder();
+        (new GenerativeSeoKitExtension(seoKitAvailable: true))->load([[]], $container);
+
+        $container->getDefinition(SeoKitRobotsGroupsProvider::class)->setPublic(true);
+        $container->getAlias(AiRobotsGroupsProviderInterface::class)->setPublic(true);
+        $container->compile();
+
+        $bridge = $container->get(SeoKitRobotsGroupsProvider::class);
+        $port   = $container->get(AiRobotsGroupsProviderInterface::class);
+        self::assertInstanceOf(SeoKitRobotsGroupsProvider::class, $bridge);
+        self::assertInstanceOf(AiRobotsGroupsProviderInterface::class, $port);
+        self::assertNotSame([], $port->groups());
+        self::assertSame($port->groups(), $bridge->groups());
+    }
+
+    public function testHostCanOverrideTheRobotsGroupsPortAlias(): void
+    {
+        $container = new ContainerBuilder();
+        (new GenerativeSeoKitExtension())->load([[]], $container);
+
+        $container->setDefinition(HostRobotsGroups::class, new Definition(HostRobotsGroups::class));
+        $container->setAlias(AiRobotsGroupsProviderInterface::class, HostRobotsGroups::class);
+        $container->getDefinition(SeoKitRobotsGroupsProvider::class)->setPublic(true);
+        $container->getDefinition(GenerativeSeoAuditor::class)->setPublic(true);
+        $container->compile();
+
+        $bridge = $container->get(SeoKitRobotsGroupsProvider::class);
+        self::assertInstanceOf(SeoKitRobotsGroupsProvider::class, $bridge);
+        self::assertSame([['user_agent' => 'HostBot', 'allow' => ['/'], 'disallow' => []]], $bridge->groups());
+        $auditor = $container->get(GenerativeSeoAuditor::class);
+        self::assertInstanceOf(GenerativeSeoAuditor::class, $auditor);
+        self::assertNotContains('no AI crawler robots groups (bundle disabled, robots_bridge off, or empty crawlers)', $auditor->problems());
+    }
 }
 
 /**
@@ -102,5 +159,16 @@ final class HostGeoRuntime implements GeoRuntimeConfigInterface
     public function llmsExtraMarkdown(): string
     {
         return 'Host notes';
+    }
+}
+
+/**
+ * Host-style robots groups port used to verify alias override.
+ */
+final class HostRobotsGroups implements AiRobotsGroupsProviderInterface
+{
+    public function groups(): array
+    {
+        return [['user_agent' => 'HostBot', 'allow' => ['/'], 'disallow' => []]];
     }
 }
