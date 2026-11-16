@@ -28,6 +28,7 @@ All notable changes to this project are documented in this file.
 - Spec Kit: `specs/001-baseline/code-inventory.md` maps `AiRobotsGroupsProviderInterface` and `CrawlerRobotsGroupsProvider` (19/19 production files) (REQ-SPECKIT-001/003)
 - README: Tests and coverage marks TS/JS and Python as N/A (REQ-TEST-007)
 - CI: Dependabot npm updates for `demo/symfony8/e2e` (REQ-GH-002)
+- `psr/log` (`^1 || ^2 || ^3`) is declared as a direct requirement, since `CrawlerRobotsGroupsProvider` uses `LoggerInterface`; it was already installed through `symfony/http-kernel` (RM4-I2)
 
 ## [1.7.0] - 2026-11-13
 
