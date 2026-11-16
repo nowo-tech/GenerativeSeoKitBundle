@@ -113,7 +113,7 @@ As an integrator, I override the AI robots toggle, extra AI User-agents and the 
 
 ## Success criteria (`SC-*`)
 
-- **SC-001**: **17/17** files tracked under `src/` are mapped in [`code-inventory.md`](code-inventory.md) (audit: `git ls-files src | wc -l`).
+- **SC-001**: **19/19** files tracked under `src/` are mapped in [`code-inventory.md`](code-inventory.md) (audit: `git ls-files src | wc -l`).
 - **SC-002**: Every `FR-GEO-*` above is cited by at least one inventory row and covered by PHPUnit tests.
 - **SC-003**: `make qa` and `make release-check` pass; PHP line coverage stays at 100% (`make test-coverage`).
 - **SC-004**: The demo serves `/llms.txt`, `/.well-known/llms.txt` and `/robots.txt` with HTTP 200 (`make -C demo/symfony8 test-e2e`).

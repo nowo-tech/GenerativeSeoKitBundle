@@ -19,6 +19,12 @@ All notable changes to this project are documented in this file.
 
 ## [Unreleased]
 
+### Changed
+
+- Spec Kit: `specs/001-baseline/code-inventory.md` maps `AiRobotsGroupsProviderInterface` and `CrawlerRobotsGroupsProvider` (19/19 production files) (REQ-SPECKIT-001/003)
+- README: Tests and coverage marks TS/JS and Python as N/A (REQ-TEST-007)
+- CI: Dependabot npm updates for `demo/symfony8/e2e` (REQ-GH-002)
+
 ## [1.7.0] - 2026-11-13
 
 ### Added

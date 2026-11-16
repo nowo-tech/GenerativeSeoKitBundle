@@ -206,7 +206,7 @@ git ls-files src | wc -l
 
 The **Total production sources** row in `code-inventory.md` must match this count.
 
-In **GenerativeSeoKitBundle**, the baseline inventory covers **17/17** files — see [`specs/001-baseline/code-inventory.md`](../specs/001-baseline/code-inventory.md).
+In **GenerativeSeoKitBundle**, the baseline inventory covers **19/19** files — see [`specs/001-baseline/code-inventory.md`](../specs/001-baseline/code-inventory.md).
 
 ---
 
