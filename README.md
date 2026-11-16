@@ -109,6 +109,8 @@ make test-coverage
 
 - Tests: PHPUnit (unit + integration)
 - PHP: **100%** lines (`make test-coverage`)
+- TS/JS: N/A (the bundle ships no TypeScript/JavaScript; the demo Playwright e2e is not measured)
+- Python: N/A
 
 ## License
 

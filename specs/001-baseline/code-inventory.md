@@ -1,8 +1,8 @@
 # Code inventory (001-baseline)
 
 **Spec**: [`spec.md`](spec.md)  
-**Last audited**: 2026-10-20  
-**Production units**: 17 (every file tracked under `src/`; audit: `git ls-files src | wc -l`)
+**Last audited**: 2026-11-16  
+**Production units**: 19 (every file tracked under `src/`; audit: `git ls-files src | wc -l`)
 
 Every production file under `src/` (REQ-SPECKIT-001 / REQ-SPECKIT-003). Paths are relative to `src/`.
 
@@ -28,6 +28,8 @@ Every production file under `src/` (REQ-SPECKIT-001 / REQ-SPECKIT-003). Paths ar
 | Source path | Spec section | Requirement IDs |
 | --- | --- | --- |
 | `Service/DefaultCrawlerCatalog.php` | Robots bridge (SeoKit) and crawler catalog | FR-GEO-004 |
+| `Service/AiRobotsGroupsProviderInterface.php` | Robots bridge (SeoKit) and crawler catalog — bundle-owned port (REQ-ARCH-001) | FR-GEO-004, FR-GEO-005 |
+| `Service/CrawlerRobotsGroupsProvider.php` | Robots bridge (SeoKit) and crawler catalog — default SeoKit-free provider | FR-GEO-004, FR-GEO-005, FR-GEO-011 |
 | `Service/SeoKitRobotsGroupsProvider.php` | Robots bridge (SeoKit) and crawler catalog | FR-GEO-005 |
 
 ## Citations
@@ -59,8 +61,8 @@ Every production file under `src/` (REQ-SPECKIT-001 / REQ-SPECKIT-003). Paths ar
 | --- | ---: | ---: |
 | Bundle and configuration | 4 | 4 |
 | HTTP — llms.txt routes and controller | 3 | 3 |
-| Robots bridge and crawler catalog | 2 | 2 |
+| Robots bridge and crawler catalog | 4 | 4 |
 | Citations | 3 | 3 |
 | Runtime SPI | 3 | 3 |
 | CLI | 2 | 2 |
-| **Total production files (`git ls-files src`)** | **17** | **17** |
+| **Total production files (`git ls-files src`)** | **19** | **19** |
