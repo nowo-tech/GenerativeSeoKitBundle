@@ -19,6 +19,10 @@ All notable changes to this project are documented in this file.
 
 ## [Unreleased]
 
+### Security
+
+- robots.txt: runtime extra AI user agents (`GeoRuntimeConfigInterface::extraAiUserAgents()`, `geo.extra_ai_user_agents`) must now be a single user-agent token (letters, digits, `-`, `_`, `.`, `/`; at most 128 characters). Values with line breaks, control characters or other characters are dropped with a logged warning instead of being written to robots.txt, so a stored value can no longer add its own robots.txt lines (RI3-L1). `CrawlerRobotsGroupsProvider` takes an optional PSR-3 logger as third constructor argument (wired to `@?logger`)
+
 ### Changed
 
 - Spec Kit: `specs/001-baseline/code-inventory.md` maps `AiRobotsGroupsProviderInterface` and `CrawlerRobotsGroupsProvider` (19/19 production files) (REQ-SPECKIT-001/003)

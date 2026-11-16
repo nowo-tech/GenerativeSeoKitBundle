@@ -21,6 +21,8 @@ use function array_column;
 use function file_get_contents;
 use function is_string;
 use function str_contains;
+use function str_repeat;
+use function strlen;
 
 /**
  * The bundle-owned robots groups port and its equivalence with the 1.6.x SeoKit provider.
@@ -83,6 +85,66 @@ final class CrawlerRobotsGroupsProviderTest extends TestCase
         self::assertSame($expected, $bridge->groups(), 'the SeoKit bridge keeps the 1.6.x output');
     }
 
+    /**
+     * RI3-L1: a runtime extra agent must not add its own robots.txt lines (e.g. `Disallow: /` for every crawler).
+     *
+     * @return iterable<string, array{string}>
+     */
+    public static function invalidExtraAgents(): iterable
+    {
+        yield 'LF line injection' => ["GPTBot\nUser-agent: *\nDisallow: /"];
+        yield 'CRLF line injection' => ["EvilBot\r\nDisallow: /"];
+        yield 'lone CR' => ["EvilBot\rDisallow: /"];
+        yield 'trailing NUL byte' => ["EvilBot\0"];
+        yield 'trailing LF' => ["EvilBot\n"];
+        yield 'vertical tab' => ["Evil\vBot"];
+        yield 'unicode line separator' => ["EvilBot\u{2028}Disallow: /"];
+        yield 'inner space' => ['Evil Bot'];
+        yield 'colon directive' => ['Disallow:/'];
+        yield 'comment' => ['EvilBot#x'];
+        yield 'wildcard' => ['*'];
+        yield 'too long' => [str_repeat('a', 129)];
+    }
+
+    #[DataProvider('invalidExtraAgents')]
+    public function testInvalidExtraAgentsAreDroppedWithAWarning(string $agent): void
+    {
+        $logger   = $this->logger();
+        $provider = new CrawlerRobotsGroupsProvider(
+            ['enabled' => true, 'crawlers' => [['user_agent' => 'GPTBot', 'allow' => ['/']]]],
+            self::runtime(true, [$agent, 'GoodBot']),
+            $logger,
+        );
+
+        self::assertSame([
+            ['user_agent' => 'GPTBot', 'allow' => ['/'], 'disallow' => []],
+            ['user_agent' => 'GoodBot', 'allow' => ['/'], 'disallow' => []],
+        ], $provider->groups());
+        self::assertCount(1, $logger->records);
+        self::assertSame('warning', $logger->records[0]['level']);
+        self::assertSame(['length' => strlen($agent)], $logger->records[0]['context']);
+        self::assertStringNotContainsString("\n", $logger->records[0]['message']);
+    }
+
+    public function testInvalidExtraAgentIsDroppedWithoutALogger(): void
+    {
+        $provider = new CrawlerRobotsGroupsProvider(['enabled' => true, 'crawlers' => []], self::runtime(true, ["Bot\nDisallow: /"]));
+
+        self::assertSame([], $provider->groups());
+    }
+
+    public function testValidTokensAreKept(): void
+    {
+        $logger   = $this->logger();
+        $agents   = ['Google-Extended', 'anthropic-ai', 'Claude_Web', 'Bot.v2', 'Mozilla/5.0', str_repeat('a', 128)];
+        $provider = new CrawlerRobotsGroupsProvider(['enabled' => true, 'crawlers' => []], self::runtime(true, $agents), $logger);
+
+        self::assertSame($agents, array_column($provider->groups(), 'user_agent'));
+        self::assertSame([], $logger->records);
+        self::assertTrue(CrawlerRobotsGroupsProvider::isValidUserAgentToken('GPTBot'));
+        self::assertFalse(CrawlerRobotsGroupsProvider::isValidUserAgentToken("GPTBot\n"));
+    }
+
     public function testCatalogDefaultsAreContributed(): void
     {
         $groups = (new CrawlerRobotsGroupsProvider(['enabled' => true, 'crawlers' => DefaultCrawlerCatalog::defaults()]))->groups();
@@ -125,6 +187,11 @@ final class CrawlerRobotsGroupsProviderTest extends TestCase
         }
 
         self::assertSame([], $offenders);
+    }
+
+    private function logger(): RecordingLogger
+    {
+        return new RecordingLogger();
     }
 
     /**

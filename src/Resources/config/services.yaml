@@ -32,6 +32,7 @@ services:
         arguments:
             $config: '%nowo_generative_seo_kit.config%'
             $runtime: '@Nowo\GenerativeSeoKitBundle\Service\GeoRuntimeConfigInterface'
+            $logger: '@?logger'
 
     # Bundle-owned robots groups port; hosts override this alias with their own AiRobotsGroupsProviderInterface service.
     Nowo\GenerativeSeoKitBundle\Service\AiRobotsGroupsProviderInterface: '@Nowo\GenerativeSeoKitBundle\Service\CrawlerRobotsGroupsProvider'
