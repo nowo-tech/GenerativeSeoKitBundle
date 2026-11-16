@@ -26,7 +26,7 @@ Static defaults for the `GeoRuntimeConfigInterface` SPI (see [USAGE.md](USAGE.md
 | Key | Default | Description |
 | --- | --- | --- |
 | `geo.ai_robots_enabled` | `true` | When false, no AI crawler groups are added to SeoKit `robots.txt` |
-| `geo.extra_ai_user_agents` | `[]` | Extra User-agent tokens emitted with `Allow: /` |
+| `geo.extra_ai_user_agents` | `[]` | Extra User-agent tokens emitted with `Allow: /`. Each value (YAML or runtime `GeoRuntimeConfigInterface`) must be one token of letters, digits, `-`, `_`, `.`, `/` (max 128 chars); other values, e.g. with line breaks, are dropped with a logged warning |
 | `geo.llms_extra_markdown` | `''` | Markdown appended after the contact line of llms.txt / llms-full.txt |
 
 ## llms
