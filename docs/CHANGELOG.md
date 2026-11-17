@@ -20,6 +20,10 @@ All notable changes to this project are documented in this file.
 
 ## [Unreleased]
 
+### Changed
+
+- Demo: `nowo-tech/ui-kit-bundle` is required by the demo; its page renders in UiKit's admin layout (masthead with the active item, page header, card) with the default theme (REQ-DEMO-014).
+
 ## [1.7.1] - 2026-11-16
 
 ### Security

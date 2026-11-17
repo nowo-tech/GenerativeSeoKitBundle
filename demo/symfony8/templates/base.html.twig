@@ -1,0 +1,23 @@
+{#- REQ-DEMO-014: the demo shell is UiKit's admin layout with UiKit's default theme (nowo-ui.css from the bundle's own
+    asset package, no CSS framework, no CDN, no token overrides). SeoKit's head tags are printed in the head block. -#}
+{% extends '@NowoUiKit/layout/admin.html.twig' %}
+
+{% block nowo_ui_document_title %}{% block title %}Generative SEO Kit Demo{% endblock %}{% endblock %}
+
+{% block nowo_ui_head %}{{ nowo_seo_head() }}{% endblock %}
+
+{% block nowo_ui_navigation %}
+    {% set _route = app.request.attributes.get('_route')|default('') %}
+    <header class="nowo-ui-header" data-testid="demo-masthead">
+        <a class="nowo-ui-brand" href="{{ path('app_home') }}">Generative SEO Kit Demo</a>
+        <nav class="nowo-ui-menu" aria-label="Demo">
+            <a class="nowo-ui-link" href="{{ path('app_home') }}"{% if _route == 'app_home' %} aria-current="page"{% endif %}>Overview</a>
+            <a class="nowo-ui-link" href="/llms.txt">llms.txt</a>
+            <a class="nowo-ui-link" href="/robots.txt">robots.txt</a>
+            <a class="nowo-ui-link" href="/sitemap.xml">sitemap.xml</a>
+        </nav>
+        <span class="nowo-ui-badge nowo-ui-badge--neutral">Symfony 8 · FrankenPHP</span>
+    </header>
+{% endblock %}
+
+{% block nowo_ui_content %}{% block body %}{% endblock %}{% endblock %}
