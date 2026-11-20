@@ -93,6 +93,8 @@ jobs:
         id: release
         uses: softprops/action-gh-release@v3
         with:
+          # 1.x maintenance line: a 1.x patch must never become the "Latest" release after 2.0.
+          make_latest: false
           tag_name: ${{ steps.tag.outputs.TAG_NAME }}
           name: Release ${{ steps.tag.outputs.TAG_NAME }}
           body_path: ${{ steps.body.outputs.body_path }}
