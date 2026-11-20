@@ -37,7 +37,7 @@ The index then includes a `## Related` link. The full file repeats the index sec
 
 ## Robots bridge
 
-Keep SeoKit `robots.txt` as the only robots document. This bundle implements `GeoRobotsGroupsProviderInterface` through `SeoKitRobotsGroupsProvider`, which forwards the bundle-owned `AiRobotsGroupsProviderInterface` port (default `CrawlerRobotsGroupsProvider`; alias the interface to replace the crawler policy). The bridge is registered only when SeoKit is installed; see [Architecture](ARCHITECTURE.md#seokit-bridge-optional-at-runtime-required-by-composer-until-20). Tune agents under `nowo_generative_seo_kit.crawlers`; do not duplicate `nowo_seo_kit.robots.groups` unless you need extra host-specific agents.
+Keep SeoKit `robots.txt` as the only robots document. This bundle implements `GeoRobotsGroupsProviderInterface` through `SeoKitRobotsGroupsProvider`, which forwards the bundle-owned `AiRobotsGroupsProviderInterface` port (default `CrawlerRobotsGroupsProvider`; alias the interface to replace the crawler policy). The bridge is registered only when SeoKit is installed; see [Architecture](ARCHITECTURE.md#seokit-bridge-optional-since-20). Tune agents under `nowo_generative_seo_kit.crawlers`; do not duplicate `nowo_seo_kit.robots.groups` unless you need extra host-specific agents.
 
 ## Citation providers
 
