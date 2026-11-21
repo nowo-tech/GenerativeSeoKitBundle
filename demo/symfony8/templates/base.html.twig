@@ -1,23 +1,23 @@
-{#- REQ-DEMO-014: the demo shell is UiKit's admin layout with UiKit's default theme (nowo-ui.css from the bundle's own
-    asset package, no CSS framework, no CDN, no token overrides). SeoKit's head tags are printed in the head block. -#}
-{% extends '@NowoUiKit/layout/admin.html.twig' %}
-
+{#- REQ-DEMO-014: the demo runs inside UiKit's shared demo platform shell. This file only declares the demo; SeoKit's head
+    tags are printed in the head block. -#}
+{% extends '@NowoUiKit/demo_platform/layout.html.twig' %}
+{% set nowo_ui_demo_platform = {
+    bundle: 'Generative SEO Kit',
+    home_route: 'app_home',
+    repository: 'https://github.com/nowo-tech/GenerativeSeoKitBundle',
+    translation_domain: false,
+    nav: [
+        {label: 'Overview', route: 'app_home'},
+        {label: 'llms.txt', href: '/llms.txt', section: 'Generated files', testid: 'demo-nav-llms'},
+        {label: 'robots.txt', href: '/robots.txt', section: 'Generated files', testid: 'demo-nav-robots'},
+        {label: 'sitemap.xml', href: '/sitemap.xml', section: 'Generated files', testid: 'demo-nav-sitemap'},
+    ],
+} %}
 {% block nowo_ui_document_title %}{% block title %}Generative SEO Kit Demo{% endblock %}{% endblock %}
 
-{% block nowo_ui_head %}{{ nowo_seo_head() }}{% endblock %}
-
-{% block nowo_ui_navigation %}
-    {% set _route = app.request.attributes.get('_route')|default('') %}
-    <header class="nowo-ui-header" data-testid="demo-masthead">
-        <a class="nowo-ui-brand" href="{{ path('app_home') }}">Generative SEO Kit Demo</a>
-        <nav class="nowo-ui-menu" aria-label="Demo">
-            <a class="nowo-ui-link" href="{{ path('app_home') }}"{% if _route == 'app_home' %} aria-current="page"{% endif %}>Overview</a>
-            <a class="nowo-ui-link" href="/llms.txt">llms.txt</a>
-            <a class="nowo-ui-link" href="/robots.txt">robots.txt</a>
-            <a class="nowo-ui-link" href="/sitemap.xml">sitemap.xml</a>
-        </nav>
-        <span class="nowo-ui-badge nowo-ui-badge--neutral">Symfony 8 · FrankenPHP</span>
-    </header>
+{% block nowo_ui_head %}
+    {{ parent() }}
+    {{ nowo_seo_head() }}
 {% endblock %}
 
 {% block nowo_ui_content %}{% block body %}{% endblock %}{% endblock %}

@@ -13,7 +13,8 @@ test.beforeAll(() => {
 test.describe('feature screenshots', () => {
   test('overview — use-case panel', async ({ page }) => {
     await page.goto('/');
-    const panel = page.locator('[data-screenshot-target]').first();
+    await page.addStyleTag({ content: '.sf-toolbar,.sf-minitoolbar,[id^="sfwdt"]{display:none!important}' });
+    const panel = page.getByTestId('demo-endpoints');
     await expect(panel).toBeVisible();
     await panel.screenshot({ path: resolve(outDir, 'overview.png') });
   });
