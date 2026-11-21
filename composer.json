@@ -114,10 +114,5 @@
     },
     "suggest": {
         "symfony/flex": "For automatic recipe installation (config and bundles.php)"
-    },
-    "extra": {
-        "branch-alias": {
-            "dev-main": "1.5.x-dev"
-        }
     }
 }
