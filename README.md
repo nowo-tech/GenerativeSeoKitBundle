@@ -24,7 +24,7 @@ This bundle is **FrankenPHP worker mode friendly**.
 
 ## Features
 
-- ✅ **Depends on SeoKit** — does not fork head tags, sitemap, or canonical; implements `GeoRobotsGroupsProviderInterface`
+- ✅ **SeoKit bridge (optional)** — does not fork head tags, sitemap, or canonical; implements `GeoRobotsGroupsProviderInterface` when `nowo-tech/seo-kit-bundle` is installed (suggested since 2.0)
 - ✅ **AI crawler policy** — default allow for inference/search bots (GPTBot, ChatGPT-User, OAI-SearchBot, ClaudeBot, Claude-User, Claude-SearchBot, PerplexityBot); default disallow for training-oriented agents (Google-Extended, Applebot-Extended, CCBot, Bytespider, anthropic-ai)
 - ✅ **llms.txt** — `/llms.txt` and `/.well-known/llms.txt` as `text/plain`; optional sections, `## Optional`, and opt-in `/llms-full.txt`
 - ✅ **Citation index** — YAML `citations`, `citation_routes`, plus tagged `CitationSourceProviderInterface`
@@ -39,7 +39,7 @@ This bundle is **FrankenPHP worker mode friendly**.
 composer require nowo-tech/generative-seo-kit-bundle
 ```
 
-Register the bundle in `config/bundles.php` (Flex does this automatically). SeoKitBundle must also be registered:
+Register the bundle in `config/bundles.php` (Flex does this automatically). For the AI groups in SeoKit's `robots.txt`, also `composer require nowo-tech/seo-kit-bundle` and register SeoKitBundle:
 
 ```php
 Nowo\SeoKitBundle\SeoKitBundle::class => ['all' => true],
@@ -50,15 +50,14 @@ Nowo\GenerativeSeoKitBundle\GenerativeSeoKitBundle::class => ['all' => true],
 
 - PHP >= 8.2, < 8.6
 - Symfony **7.4+** or **8.x**
-- `nowo-tech/seo-kit-bundle` ^1.11
+- Optional: `nowo-tech/seo-kit-bundle` ^1.11 (SeoKit bridge; suggested since 2.0)
 
 ## Version information
 
 | Version | PHP | Symfony | Status |
 |---------|-----|---------|--------|
-| 1.2.x | >= 8.2 | 7.4 – 8.1+ | Current |
-| 1.1.x | >= 8.2 | 7.4 – 8.1+ | Maintained |
-| 1.0.x | >= 8.2 | 7.4 – 8.1+ | Initial |
+| 2.x | >= 8.2 | 7.4 – 8.1+ | Current |
+| 1.x | >= 8.2 | 7.4 – 8.1+ | Security fixes (Moderate and above) until 6 months after 2.0.0 |
 
 ## Demos
 

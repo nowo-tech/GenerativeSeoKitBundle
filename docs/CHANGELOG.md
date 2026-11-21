@@ -20,9 +20,20 @@ All notable changes to this project are documented in this file.
 
 ## [Unreleased]
 
+### Removed
+
+- **BREAKING (Composer):** `nowo-tech/seo-kit-bundle` is no longer required (REQ-ARCH-001 rule 8, announced in UPGRADING "To 1.7.0", "Prepare for 2.0"). It moves to `suggest` (the SeoKit bridge, `SeoKitRobotsGroupsProvider`) and stays in `require-dev`; `conflict` refuses SeoKit below 1.11. No code change: the bridge has been registered only when SeoKit is installed since 1.7.0. Apps that use SeoKit run `composer require nowo-tech/seo-kit-bundle` (see UPGRADING)
+
 ### Changed
 
+- `extra.branch-alias` `dev-main` is `2.x-dev` (was a stale `1.5.x-dev`)
+- CI: new job "Without SeoKit" removes the package and runs a kernel test of the real extension without it (llms.txt served, audit passes, no bridge service); `ci.yml` also runs on the `1.x` maintenance branch
+- Docs: ARCHITECTURE "SeoKit bridge (optional since 2.0)" and the REQ-ARCH-001 summary (rule 8 ✅), INSTALLATION, README, supported versions
 - Demo: `nowo-tech/ui-kit-bundle` is required by the demo; its page renders in UiKit's admin layout (masthead with the active item, page header, card) with the default theme (REQ-DEMO-014).
+
+### Security
+
+- 1.x support after 2.0.0: security fixes for 6 months; Moderate and above are backported to the last 1.x minor, Low ones are fixed in 2.x only (`.github/SECURITY.md`, `docs/SECURITY.md`)
 
 ## [1.7.1] - 2026-11-16
 

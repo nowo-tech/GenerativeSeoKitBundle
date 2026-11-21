@@ -19,6 +19,43 @@
 
 ## Unreleased
 
+From **1.7.x** (major version: Composer needs `-W` to cross it):
+
+```bash
+composer require nowo-tech/generative-seo-kit-bundle:^2.0 -W
+```
+
+If your app uses SeoKit (`SeoKitBundle` in `config/bundles.php`, `type: nowo_seo_kit` routes), run
+`composer require nowo-tech/seo-kit-bundle` first, or in the same command.
+
+2.0 contains only changes that 1.x announced through deprecation notices: an application that runs the last 1.x minor
+without deprecation notices from this bundle upgrades without code changes. After 2.0.0 is released, the 1.x line
+receives security fixes for 6 months: fixes rated Moderate and above are backported to the last 1.x minor; Low ones are
+fixed in 2.x only.
+
+**Before you upgrade.** 1.x raised no runtime deprecation notice. The only announced change is the 1.7.0 item
+"Prepare for 2.0": "2.0 moves `nowo-tech/seo-kit-bundle` from `require` to `suggest`. If your app uses SeoKit
+(`SeoKitBundle` in `config/bundles.php`, `type: nowo_seo_kit` routes), require it directly now:
+`composer require nowo-tech/seo-kit-bundle`."
+
+**Default changes.** None.
+
+**Removed.** Nothing: no class, service, configuration key, route or template is removed.
+
+**Composer moves.**
+
+| Package | 1.x | 2.0 | What it enables |
+|---------|-----|-----|-----------------|
+| `nowo-tech/seo-kit-bundle` | `require` `^1.11` | `suggest`; `conflict` `<1.11` | The SeoKit bridge (`SeoKitRobotsGroupsProvider`): AI crawler groups in SeoKit's `robots.txt` |
+
+Without SeoKit, llms.txt, the citation index, the runtime config port, the robots groups port
+(`AiRobotsGroupsProviderInterface`) and `nowo:generative-seo:audit` work as before; the bridge service is not
+registered. A host that removed SeoKit but still lists `SeoKitBundle` in `config/bundles.php` or imports its routes
+fails to boot with a class-not-found error: require SeoKit, or remove those lines.
+
+**1.x support.** 1.x receives security fixes for 6 months after 2.0.0 (Moderate and above, backported to the last 1.x
+minor). See [SECURITY](SECURITY.md#supported-versions).
+
 ## To 1.7.1
 
 From **1.7.0**:
@@ -117,6 +154,7 @@ Optional `llms.sections` / `llms.optional_links` / `llms.full_*` are additive. E
 
 | Bundle | PHP | Symfony | SeoKit |
 |--------|-----|---------|--------|
+| 2.x | >= 8.2, < 8.6 | 7.4 / 8.x | optional (suggest; ^1.11 when installed) |
 | 1.4.x | >= 8.2, < 8.6 | 7.4 / 8.x | ^1.11 |
 | 1.3.x | >= 8.2, < 8.6 | 7.4 / 8.x | ^1.11 |
 | 1.2.x | >= 8.2, < 8.6 | 7.4 / 8.x | ^1.11 |

@@ -4,7 +4,7 @@
 
 - [Overview](#overview)
 - [Ports and SPI](#ports-and-spi)
-- [SeoKit bridge (optional at runtime, required by Composer until 2.0)](#seokit-bridge-optional-at-runtime-required-by-composer-until-20)
+- [SeoKit bridge (optional since 2.0)](#seokit-bridge-optional-since-20)
 - [Standard Symfony and DDD hosts](#standard-symfony-and-ddd-hosts)
   - [Standard Symfony host](#standard-symfony-host)
   - [DDD / hexagonal host](#ddd--hexagonal-host)
@@ -37,7 +37,7 @@ services:
     Nowo\GenerativeSeoKitBundle\Service\AiRobotsGroupsProviderInterface: '@App\Seo\SiteAiRobotsGroups'
 ```
 
-## SeoKit bridge (optional at runtime, required by Composer until 2.0)
+## SeoKit bridge (optional since 2.0)
 
 `SeoKitRobotsGroupsProvider` is the only class that touches SeoKit. It implements SeoKit's
 `GeoRobotsGroupsProviderInterface` (tag `nowo_seo_kit.geo_robots_groups_provider`) and forwards the
@@ -47,21 +47,23 @@ Since 1.7.0 the extension registers the bridge only when SeoKit is installed (`i
 Everything else (llms.txt, citations, runtime config, the audit) works without SeoKit. A test guards that no other class
 references SeoKit.
 
-`nowo-tech/seo-kit-bundle` **stays in `require` for all 1.x releases.** Moving it to `suggest` in a minor would let
-`composer update` uninstall SeoKit from hosts that only got it through this package, while their `config/bundles.php`
-and `config/routes` (as [INSTALLATION](INSTALLATION.md) asks) still reference SeoKit's bundle and route loader: their
-kernel would stop booting. REQ-ARCH-001 rule 8 (hard dependency) is therefore **deferred to 2.0**, which moves SeoKit to
-`suggest` with no code change. To be ready, hosts that use SeoKit should require it directly now:
+**Done in 2.0 (REQ-ARCH-001 rule 8):** `nowo-tech/seo-kit-bundle` moved from `require` to `suggest`, with no code
+change (the 1.x line kept it in `require`, because a minor would have let `composer update` uninstall SeoKit from hosts
+whose `config/bundles.php` and routes still reference it). Composer refuses SeoKit below 1.11 (`conflict`). A host that
+uses SeoKit requires it directly:
 
 ```bash
 composer require nowo-tech/seo-kit-bundle
 ```
 
+The CI job "Without SeoKit" removes the package and boots the real extension: llms.txt, the audit and the robots groups
+port work, and the bridge is not registered.
+
 ## Standard Symfony and DDD hosts
 
 ### Standard Symfony host
 
-Install the bundle (SeoKit comes with it in 1.x), import the `nowo_generative_seo_kit` route type, tune
+Install the bundle (add `nowo-tech/seo-kit-bundle` too if you want the AI groups in SeoKit's `robots.txt`), import the `nowo_generative_seo_kit` route type, tune
 `nowo_generative_seo_kit.crawlers` / `citations` in YAML. Nothing else is needed.
 
 ### DDD / hexagonal host
@@ -87,4 +89,4 @@ There are no entities to map and no events. A DDD host:
 | 5 SPI | Runtime config, llms header, citation and robots-groups ports |
 | 6 No host EM flush | No Doctrine usage |
 | 7 Events after commit | No events |
-| 8 Config through provider ports | Config tree + `GeoRuntimeConfigInterface`; SeoKit is optional at runtime, but stays in Composer `require` until 2.0 (see above) |
+| 8 Config through provider ports | ✅ Config tree + `GeoRuntimeConfigInterface`; SeoKit is optional at runtime and, since 2.0, only suggested by Composer (see above) |

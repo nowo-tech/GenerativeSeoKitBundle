@@ -13,7 +13,7 @@
 
 - PHP >= 8.2, < 8.6
 - Symfony **7.4+** or **8.x**
-- `nowo-tech/seo-kit-bundle` ^1.11 (registers `GeoRobotsGroupsProviderInterface` and serves `robots.txt`)
+- Optional: `nowo-tech/seo-kit-bundle` ^1.11 (registers `GeoRobotsGroupsProviderInterface` and serves `robots.txt`; needed only for the AI crawler groups in SeoKit's `robots.txt`)
 
 ## Composer
 
@@ -21,7 +21,7 @@
 composer require nowo-tech/generative-seo-kit-bundle
 ```
 
-This package **requires** SeoKit in 1.x (only the robots bridge uses it at runtime; 2.0 moves it to `suggest`, see [ARCHITECTURE](ARCHITECTURE.md#seokit-bridge-optional-at-runtime-required-by-composer-until-20)). If you use SeoKit, also require it directly (`composer require nowo-tech/seo-kit-bundle`). Do not extract crawler groups out of SeoKit; this bundle implements the existing provider tag.
+Since 2.0 SeoKit is only suggested (only the robots bridge uses it, see [ARCHITECTURE](ARCHITECTURE.md#seokit-bridge-optional-since-20)). If you use SeoKit, require it directly (`composer require nowo-tech/seo-kit-bundle`). Do not extract crawler groups out of SeoKit; this bundle implements the existing provider tag.
 
 ## Register the bundle
 

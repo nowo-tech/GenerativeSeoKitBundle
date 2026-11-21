@@ -7,6 +7,7 @@
 - [Logging](#logging)
 - [Integrator guidance](#integrator-guidance)
 - [Dependencies](#dependencies)
+- [Supported versions](#supported-versions)
 - [Release security checklist (12.4.1)](#release-security-checklist-1241)
 - [AI security audit (REQ-SEC-004)](#ai-security-audit-req-sec-004)
 
@@ -41,7 +42,16 @@ The bundle does not log: it has no error paths that handle secrets or personal d
 
 ## Dependencies
 
-Run `composer audit` in consuming applications. This bundle requires `nowo-tech/seo-kit-bundle`.
+Run `composer audit` in consuming applications. Since 2.0 `nowo-tech/seo-kit-bundle` is optional (suggested); when installed it must be ^1.11.
+
+## Supported versions
+
+| Version | Supported |
+| ------- | --------- |
+| 2.x | ✅ |
+| 1.x | security fixes (Moderate+) until 6 months after 2.0.0 |
+
+Fixes rated Moderate and above are backported to the last 1.x minor as a 1.x patch; Low ones are fixed in 2.x only.
 
 ## Release security checklist (12.4.1)
 
