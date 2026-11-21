@@ -5,6 +5,7 @@ All notable changes to this project are documented in this file.
 ## Table of contents
 
 - [[Unreleased]](#unreleased)
+- [[2.0.0] - 2026-11-21](#200---2026-11-21)
 - [[1.7.1] - 2026-11-16](#171---2026-11-16)
 - [[1.7.0] - 2026-11-13](#170---2026-11-13)
 - [[1.6.1] - 2026-10-30](#161---2026-10-30)
@@ -19,6 +20,8 @@ All notable changes to this project are documented in this file.
 - [[1.0.0] - 2026-10-06](#100---2026-10-06)
 
 ## [Unreleased]
+
+## [2.0.0] - 2026-11-21
 
 ### Removed
 
