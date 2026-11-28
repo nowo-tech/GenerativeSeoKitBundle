@@ -23,6 +23,7 @@ All notable changes to this project are documented in this file.
 
 ### Changed
 
+- PHP 8.6 and Symfony 8.2 support in CI (both stable, no allowed failures): `composer.json` allows PHP below 8.7 (was below 8.6) and a forward-compatibility workflow runs the suite on PHP 8.6 and on Symfony 8.2.
 - Demo: runs in UiKit's demo platform shell (`nowo-tech/ui-kit-bundle` ^2.60); the demo's own header is gone and the pages use the shell page headers and section cards. Demo only, no bundle change.
 
 ## [2.0.0] - 2026-11-21
