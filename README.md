@@ -48,7 +48,7 @@ Nowo\GenerativeSeoKitBundle\GenerativeSeoKitBundle::class => ['all' => true],
 
 ## Requirements
 
-- PHP >= 8.2, < 8.6
+- PHP >= 8.2, < 8.7
 - Symfony **7.4+** or **8.x**
 - Optional: `nowo-tech/seo-kit-bundle` ^1.11 (SeoKit bridge; suggested since 2.0)
 
